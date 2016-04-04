@@ -16,6 +16,8 @@ Once your code is in the folder, you could open an [issue](#issues) to describe 
 
 Although GitHub calls them ***issues***, I like to think of them as ***conversation starters***. You can use them for anything, asking questions, sharing links to suggestions, starting work plans, whatever you fancy! They're a great tool to allow us to work collaboratively and get feedback on our ideas.
 
+Remember that we all love to receive positive feedback, so please be liberal with your [reactions](https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments) to any suggestions. :+1: :smile: :heart: :tada:
+
 ## Pull requests
 
 If you'd like to contribute documentation or code to the project you can open a [pull request](https://github.com/KirstieJane/BrainsForPublication/pulls).
