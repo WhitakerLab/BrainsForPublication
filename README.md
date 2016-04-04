@@ -10,3 +10,7 @@ Code and documentation for the Brains for Publication proposal for the 2016 OHBM
 **The solution**: At the 0HBM BrainHack unconference in Lausanne we'll work together to provide examples and documentation for how to transform your 3D nifti images into various different types of figures (and movies and gifs) so your publication will entice readers to read about your work based on the lovely images you present.
 
 **The side effect**: By providing the tools we will ensure that graduate students and other early career researchers maintain much better standards of reproducibility and replicability when presenting their work for publication.
+
+## Contributing to the project
+
+If you'd like to contribute to the project please read our [guidelines](https://github.com/KirstieJane/BrainsForPublication/blob/master/CONTRIBUTING.md). Please also read through our [code of conduct](https://github.com/KirstieJane/BrainsForPublication/blob/master/CODE_OF_CONDUCT.md). We want this project to be open and supportive of anyone at any level of seniority or GitHub/coding/statistical/neuroantomical/aesthetic expertise.
