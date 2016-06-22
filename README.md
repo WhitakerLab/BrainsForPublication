@@ -7,7 +7,7 @@ Code and documentation for the Brains for Publication proposal for the 2016 OHBM
 
 **The inequality**: So many other groups have much better images than you! They have code they use to generate 3D renders of your results, or movies though the many slices, or spinning renderings! They have the expertise probably because they have developed some of the code to do "fancy" analyses and you're not sure how you can jump in with your output from a different analysis package to make their beautiful pictures.
 
-**The solution**: At the 0HBM BrainHack unconference in Lausanne we'll work together to provide examples and documentation for how to transform your 3D nifti images into various different types of figures (and movies and gifs) so your publication will entice readers to read about your work based on the lovely images you present.
+**The solution**: At the OHBM BrainHack unconference in Lausanne we'll work together to provide examples and documentation for how to transform your 3D nifti images into various different types of figures (and movies and gifs) so your publication will entice readers to read about your work based on the lovely images you present.
 
 **The side effect**: By providing the tools we will ensure that graduate students and other early career researchers maintain much better standards of reproducibility and replicability when presenting their work for publication.
 
