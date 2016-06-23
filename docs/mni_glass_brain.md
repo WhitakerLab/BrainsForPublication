@@ -8,13 +8,11 @@ The `mri_glass_brain.py` script shows your 3D statistical maps on a glass brain.
 
 ## Output file
 
-A `.png` file with the same base file name as the input file and in the same directory.
+A `.png` file with the same base file name as the input file and in the same directory along with the text `GlassBrain_`, the orientation chosen and the `.png` suffix.
 
-The label "GlassBrain", whether you've thesholded using `thr_pos` or `thr_abs` (see below for details) and the orientation chosen (again, see below) is appended before the `.png` suffix.
+* For example the following command which takes as input the file `ALL_N95_Mean_cope2_zstat1.nii.gz` would create an output file called `ALL_N95_Mean_cope2_zstat1_GlassBrain_ortho.png` in the same directory (shown below).
 
-For example the following command which takes as input the file `ALL_N95_Mean_cope2_zstat1.nii.gz` would create an output file called `ALL_N95_Mean_cope2_zstat1_GlassBrain_ortho.png` in the same directory (shown below).
-
-  `mri_glass_brain.py --cbar --thr_abs 6 ../data/ALL_N95_Mean_cope2_zstat1.nii.gz`
+        `mri_glass_brain.py --cbar --thr_abs 6 ../data/ALL_N95_Mean_cope2_zstat1.nii.gz`
   
 ![]()
 
