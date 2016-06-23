@@ -19,18 +19,6 @@ import numpy as np
 import nibabel as nib
 from nilearn import plotting
 
-#import pandas as pd
-#from surfer import Brain
-
-#import itertools as it
-
-#import matplotlib.pylab as plt
-#import matplotlib.image as mpimg
-#import matplotlib.gridspec as gridspec
-
-#import matplotlib.colors as mcolors
-#import matplotlib.cm as cm
-
 #=============================================================================
 # FUNCTIONS
 #=============================================================================
