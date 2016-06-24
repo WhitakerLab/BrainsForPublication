@@ -4,4 +4,3 @@ nilearn
 nipy
 numpy
 scipy
-urllib
