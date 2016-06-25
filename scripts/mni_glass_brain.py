@@ -18,6 +18,7 @@ import numpy as np
 
 import nibabel as nib
 from nilearn import plotting
+from nilearn.plotting import cm
 
 #=============================================================================
 # FUNCTIONS
@@ -120,6 +121,12 @@ dpi = arguments.dpi
 symmetric_cbar=False
 
 #===============================================================================
+# Get the colormap from nilearn
+#===============================================================================
+if hasattr(cm, cmap):
+    cmap = getattr(cm, cmap)
+
+#===============================================================================
 # Sort out the thresholding
 #===============================================================================
 # Read in the data using nibabel
@@ -129,7 +136,7 @@ data = img.get_data()
 # If you want to show both positive and negative values
 # on either side of a threshold value then you want to use
 # thr_abs.
-if thr_abs is not None:
+if thr_pos is None:
 
     threshold = thr_abs
 
@@ -143,14 +150,15 @@ if thr_abs is not None:
     # of the lower threshold is larger than the absolute value of the
     # upper threshold then we should set the upper threshold to
     # -1 * lower_threshold.
-    if np.abs(lower_thresh) < np.abs(upper_thresh):
-        lower_thresh = np.abs(upper_thresh) * -1
-    else:
-        upper_thresh = np.abs(lower_thresh) * -1
+    if lower_thresh is not None and upper_thresh is not None:
+        if np.abs(lower_thresh) < np.abs(upper_thresh):
+            lower_thresh = np.abs(upper_thresh) * -1
+        else:
+            upper_thresh = np.abs(lower_thresh) * -1
 
 # If you want to only show positive values (or values larger than a certain
 # threshold value then you want to use thr_pos.
-elif thr_pos is not None:
+else:
 
     threshold = thr_pos
 
