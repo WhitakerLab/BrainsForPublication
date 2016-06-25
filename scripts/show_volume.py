@@ -5,6 +5,18 @@ from matplotlib import pylab
 from matplotlib import pyplot as plt
 from nipy.labs import viz
 from os.path import join as opj
+import sys
+import numpy as np
+import nibabel as nb
+from scipy.ndimage import label as sci_label
+from matplotlib import pylab
+from matplotlib import pyplot as plt
+from nipy.labs import viz
+from os.path import join as opj
+from os.path import basename as opb
+from glob import glob as gg
+import os
+
 
 
 def get_labels(data, threshold=0, min_extent=0):
@@ -61,12 +73,14 @@ def get_cluster_info(img, affine, data):
 
 
 def show_slices(data, affine, coords=None, cmap=None, prefix=None,
-                show_colorbar=None, formatter='%.2f', showCross=False):
+                foldername=None, show_colorbar=None, formatter='%.2f',
+                showCross=False,
+                template='../templates/MNI152_T1_1mm_brain.nii.gz'):
 
     if cmap is None:
         cmap = pylab.cm.hot
 
-    anatimg = nb.load('../templates/MNI152_T1_1mm_brain.nii.gz')
+    anatimg = nb.load(template)
     anatdata, anataff = anatimg.get_data(), anatimg.get_affine()
     anatdata = anatdata.astype(np.float)
     anatdata[anatdata < 10.] = np.nan
@@ -86,6 +100,52 @@ def show_slices(data, affine, coords=None, cmap=None, prefix=None,
                 cb.set_ticks([cb._values.min(), cb._values.max()])
 
             osl.frame_axes.figure.savefig(
-                opj('figures', outfile + '.png'), dpi=300,
+                opj('figures', foldername, outfile + '.png'), dpi=300,
                 bbox_inches='tight', transparent=True)
             plt.close()
+
+
+def create_output(filePath, threshold, cluster_extend, showCross, template):
+
+    img = nb.load(filePath)
+    data = img.get_data()
+    affine = img.get_affine()
+    labels, nlabels = get_labels(data, threshold=threshold,
+                                 min_extent=cluster_extend)
+
+    # Catch if nlabels is 0, i.e. no clusters survived thresholding
+    #     Should an output be created if no cluster survives thresholding?
+
+    coords, valuesInfo = get_cluster_info(labels, affine, data)
+
+    # Get file prefix
+    if filePath.endswith('.nii'):
+        filename = opb(filePath)[:-4]
+    elif filePath.endswith('.nii.gz'):
+        filename = opb(filePath)[:-7]
+
+    # Create output folder
+    if not os.path.exists(opj('figures', filename)):
+        os.makedirs(opj('figures', filename))
+
+    # Create figures
+    show_slices(data, affine, coords, cmap=pylab.cm.hot, foldername=filename,
+                show_colorbar=True, formatter='%d', showCross=showCross)
+
+    # Create CSV output
+    header = 'X,Y,Z,Size,Max,Min,Mean,Std'
+    np.savetxt(opj('figures', filename, 'cluster_info.csv'), valuesInfo,
+               delimiter=',', fmt='%.8f', header=header, comments='')
+
+
+if __name__ == "__main__":
+
+    threshold = float(sys.argv[1])
+    cluster_extend = int(sys.argv[2])
+    showCross = bool(sys.argv[3])
+    template = str(sys.argv[4])
+
+    fileList = gg('data/*')
+
+    for fpath in fileList:
+        create_output(fpath, threshold, cluster_extend, showCross, template)
