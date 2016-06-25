@@ -15,7 +15,7 @@ Want to project your 3D statistical maps through a glass brain? Check out ***[mr
 Want to see where the clusters in your 3D statistical maps are? Check out ***[show_cluster_in_volume](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
 
 <img
-  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png"
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/cluster00.png"
   align="middle"
   width=70%
 </img>
@@ -24,9 +24,9 @@ Want to see where the clusters in your 3D statistical maps are? Check out ***[sh
 Want to make beautiful images of your freesurfer results? Check out ***[pysurfer_combined](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
 
 <img
-  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png"
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/PLS2_with99s_pial_classic_combined.png"
   align="middle"
-  width=70%
+  width=50%
 </img>
 <BR CLEAR=ALL>
 
