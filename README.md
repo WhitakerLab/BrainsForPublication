@@ -12,7 +12,7 @@ Want to project your 3D statistical maps through a glass brain? Check out ***[mr
 </img>
 <BR CLEAR=ALL>
 
-Want to see where the clusters in your 3D statistical maps are? Check out ***[show_cluster_in_volume](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+Want to see where the clusters in your 3D statistical maps are? Check out ***[show_cluster_in_volume.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
 
 <img
   src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/cluster00.png"
@@ -21,10 +21,19 @@ Want to see where the clusters in your 3D statistical maps are? Check out ***[sh
 </img>
 <BR CLEAR=ALL>
 
-Want to make beautiful images of your freesurfer results? Check out ***[pysurfer_combined](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+Want to make beautiful images of your freesurfer results? Check out ***[pysurfer_combined.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
 
 <img
   src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/PLS2_with99s_pial_classic_combined.png"
+  align="middle"
+  width=50%
+</img>
+<BR CLEAR=ALL>
+
+Want to make a snazzy gif of your own brain? Check out ***[subj_anat_gif.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/subj_anat_gif.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/KW_high_res_sagittal.gif"
   align="middle"
   width=50%
 </img>
