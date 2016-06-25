@@ -5,10 +5,6 @@ from matplotlib import pylab
 from matplotlib import pyplot as plt
 from nipy.labs import viz
 from os.path import join as opj
-from os.path import basename as opb
-from glob import glob as gg
-from IPython.display import Image, display
-import shutil
 
 
 def get_labels(data, threshold=0, min_extent=0):
@@ -18,15 +14,18 @@ def get_labels(data, threshold=0, min_extent=0):
     """
     binarized_data = abs(data) > threshold
 
-    # corrects directly the loaded data file
-    data[np.invert(binarized_data)] = 0
-
     labels, nlabels = sci_label(binarized_data)
     for idx in range(1, nlabels + 1):
         if np.sum(labels == idx) < min_extent:
             labels[labels == idx] = 0
-    nlabels = len(np.setdiff1d(np.unique(labels), [0]))
-    return sci_label(labels)
+
+    labels, nlabels = sci_label(labels)
+
+    # corrects directly the loaded data file
+    binarized_data = labels.astype('bool')
+    data[np.invert(binarized_data)] = 0
+
+    return labels, nlabels
 
 
 def get_cluster_info(img, affine, data):
