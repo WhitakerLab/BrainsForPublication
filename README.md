@@ -39,6 +39,10 @@ Want to make a snazzy gif of your own brain? Check out ***[subj_anat_gif.py](htt
 </img>
 <BR CLEAR=ALL>
 
+## Online processing
+
+If you don't want to download anything, you can actually run these scripts online. Click [here](http://mybinder.org/repo/miykael/BrainsForPublication) to get started.
+
 ## The proposal in brief
 
 **The problem**: You bust your butt figuring out how to do all the complicated neuroimaging analyses, then you write up all the steps in your methods section (whether you do it well is a project for another day) and interpret your results in your discussion section. And then to make the figures for your manuscript you make a screen shot and copy and paste the image into powerpoint before adding some labels and saving as a high res image.
