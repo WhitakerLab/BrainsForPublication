@@ -12,9 +12,9 @@ A `.png` file with the same base file name as the input file and in the same dir
 
 * For example the following command which takes as input the file `ALL_N95_Mean_cope2_zstat1.nii.gz` would create an output file called `ALL_N95_Mean_cope2_zstat1_GlassBrain_ortho.png` in the same directory (shown below).
 
-        `mri_glass_brain.py --cbar --thr_abs 6 ../data/ALL_N95_Mean_cope2_zstat1.nii.gz`
-  
-![]()
+        mri_glass_brain.py --cbar --thr_abs 6 ../data/ALL_N95_Mean_cope2_zstat1.nii.gz
+
+![](https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png)
 
 ## Usage
 ```
@@ -26,7 +26,7 @@ usage: mni_glass_brain.py [-h] [--display_mode display_mode] [-c cmap] [-cb]
 Plot a statistical volume in MNI space within a glass brain
 
 positional arguments:
-  stats_file            Nifti file in MNI space containing the 
+  stats_file            Nifti file in MNI space containing the
                           statistical values you want to visualise
 
 optional arguments:
@@ -68,4 +68,6 @@ optional arguments:
                         Upper limit for colormap
   --dpi dpi             DPI of output png file
                         Default: 300
+
+Author: Kirstie Whitaker <kw401@cam.ac.uk>
 ```
