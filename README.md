@@ -1,6 +1,35 @@
 # BrainsForPublication
 Code and documentation for the Brains for Publication proposal for the 2016 OHBM Hackathon 
 
+## Some pretty pictures
+
+Want to project your 3D statistical maps through a glass brain? Check out ***[mri_glass_brain.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png"
+  align="middle"
+  width=70%
+</img>
+<BR CLEAR=ALL>
+
+Want to see where the clusters in your 3D statistical maps are? Check out ***[show_cluster_in_volume](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png"
+  align="middle"
+  width=70%
+</img>
+<BR CLEAR=ALL>
+
+Want to make beautiful images of your freesurfer results? Check out ***[pysurfer_combined](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png"
+  align="middle"
+  width=70%
+</img>
+<BR CLEAR=ALL>
+
 ## The proposal in brief
 
 **The problem**: You bust your butt figuring out how to do all the complicated neuroimaging analyses, then you write up all the steps in your methods section (whether you do it well is a project for another day) and interpret your results in your discussion section. And then to make the figures for your manuscript you make a screen shot and copy and paste the image into powerpoint before adding some labels and saving as a high res image.
