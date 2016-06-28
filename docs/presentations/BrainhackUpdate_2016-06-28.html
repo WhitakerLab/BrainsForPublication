@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Brains4Publication</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      iframe {
+              -moz-transform: scale(0.8, 0.8);
+              -webkit-transform: scale(0.8, 0.8);
+              -o-transform: scale(0.8, 0.8);
+              -ms-transform: scale(0.8, 0.8);
+              transform: scale(0.8, 0.8);
+              -moz-transform-origin: top left;
+              -webkit-transform-origin: top left;
+              -o-transform-origin: top left;
+              -ms-transform-origin: top left;
+              transform-origin: top left;
+            }
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, left
+
+# Brains4Publication
+
+Brainhack project update
+
+**Our goal**: *Make neuroimaging publications more beautiful while promoting best practices for reproducible research.*
+
+We wanted to wrap plotting functions to make them into useful command line tools that anyone who is conducting neuroimaging research will be able to use.
+
+<img
+  src="http://nilearn.github.io/_static/nilearn-logo.png"
+  style="width:50%"
+</img>
+
+We were very successful. We had some really incredible help from the [nilearn]() and [nipy]() teams. ***Thank you!***
+
+---
+
+# Glass brain
+
+Want to project your 3D statistical maps through a glass brain? Check out ***[mri_glass_brain.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png"
+  style="margin-left: auto; margin-right: auto; width:100%; display: block"
+</img>
+
+---
+
+# Locate clusters
+Want to see where the clusters in your 3D statistical maps are? Check out ***[show_cluster_in_volume.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/cluster00.png"
+  style="margin-left: auto; margin-right: auto; width:70%; display: block"
+</img>
+
+You get one of these pictures for each of the cluster peaks, and a text file with the coordinates and descriptive statistics.
+
+---
+
+# Freesurfer results
+
+Want to make beautiful images of your freesurfer results? Check out ***[pysurfer_combined.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/PLS2_with99s_pial_classic_combined.png"
+  style="margin-left: auto; margin-right: auto; width:70%; display: block"
+</img>
+
+---
+
+# High res gif
+
+Want to make a snazzy gif of your own brain? Check out ***[subj_anat_gif.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/subj_anat_gif.md)***
+
+<img
+  src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/KW_high_res_sagittal.gif"
+  style="margin-left: auto; margin-right: auto; width:70%; display: block"
+</img>
+
+---
+
+# No installation required!
+
+<iframe src="http://mybinder.org/" width=120% height="100%" frameborder="0" scrolling="yes"></iframe>
+
+---
+
+# Run all the code online
+
+<iframe src="http://mybinder.org/repo/KirstieJane/BrainsForPublication" width=120% height="100%" frameborder="0" scrolling="yes"></iframe>
+
+---
+
+# Lets all build a hat rack!
+
+<iframe src="https://labhr.github.io/hatrack/#repo=kirstiejane/BrainsForPublication" width="120%" height="100%" frameborder="0" scrolling="yes"></iframe>
+
+---
+
+# Thank you!
+
+<iframe src="http://events.brainhack.org/OHBM2016/#sponsors" width="120%" height="100%" frameborder="0" scrolling="yes"></iframe>
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
