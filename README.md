@@ -41,7 +41,7 @@ Want to make a snazzy gif of your own brain? Check out ***[subj_anat_gif.py](htt
 
 ## Online processing
 
-If you don't want to download anything, you can actually run these scripts online. Click [here](http://mybinder.org/repo/miykael/BrainsForPublication) to get started.
+If you don't want to download anything, you can actually run these scripts online. Click [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/KirstieJane/BrainsForPublication) to get started.
 
 ## The proposal in brief
 
