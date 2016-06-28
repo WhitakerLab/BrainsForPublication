@@ -1,3 +1,4 @@
+```
 usage: mni_glass_brain.py [-h] [--display_mode display_mode] [-c cmap] [-cb]
                           [--black_bg] [--thr_abs thr_abs] [--thr_pos thr_pos]
                           [-l lowerthr] [-u upperthr] [--dpi dpi]
@@ -50,3 +51,4 @@ optional arguments:
                         Default: 300
 
 Author: Kirstie Whitaker <kw401@cam.ac.uk>
+```
