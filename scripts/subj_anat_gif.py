@@ -121,8 +121,7 @@ draw_cross = False
 #===============================================================================
 # Make a bunch of dictionaries that allow you to loop through x, y and z
 #===============================================================================
-
-# The x, y, z coord_transform dictionary contains keys that
+# The x, y, z coord_transform dictionaries contains keys that
 # are either 'x', 'y', 'z' and values that are functions to
 # convert that axis to alligned space.
 def coord_transform_x(x, img):
@@ -138,6 +137,23 @@ def coord_transform_z(z, img):
 coord_transform_dict = { 'x' : coord_transform_x,
                          'y' : coord_transform_y,
                          'z' : coord_transform_z }
+
+# The x, y, z slice dictionaries contains keys that
+# are either 'x', 'y', 'z' and values that are functions to
+# return the slice through a specific coordinate.
+def slice_x(x, img):
+    s = img.get_data()[x, :, :]
+    return s
+def slice_y(y, img):
+    s = img.get_data()[:, y, :]
+    return s
+def slice_z(z, img):
+    s = img.get_data()[:, :, z]
+    return s
+
+slice_dict = { 'x' : slice_x,
+               'y' : slice_y,
+               'z' : slice_z }
 
 # The x, y, z dim lookup dictionary contains keys that
 # are either 'x', 'y', 'z' and values that correspond to
@@ -197,9 +213,12 @@ if not overlay_file is None:
 #===============================================================================
 
 # Loop through all the slices in this dimension
-for i in np.arange(img_reslice.shape[dim_lookup_dict['x']], dtype='float'):
+for i in np.arange(img_reslice.shape[dim_lookup_dict[axis]], dtype='float'):
 
     # Test to see if there is anything worth showing in the image
+    # If the anat image (img) is empty then don't make a picture
+    if slice_dict[axis](i, img).mean() == 0.0:
+        continue
 
     # Get the co-ordinate you want
     coord = coord_transform_dict[axis](i, img_reslice)
