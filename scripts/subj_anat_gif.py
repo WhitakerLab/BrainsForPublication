@@ -190,7 +190,7 @@ if not overlay_file is None:
     overlay_img = nib.load(overlay_file)
     data = overlay_img.get_data()
     data = data.astype('float')
-    overlay_img_reslice = reorder_img(overlayimg, resample='nearest')
+    overlay_img_reslice = reorder_img(overlay_img, resample='nearest')
 
 #===============================================================================
 # Plot each slice unless it's empty!
