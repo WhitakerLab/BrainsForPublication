@@ -46,12 +46,12 @@ def setup_argparser():
     parser.add_argument(dest='anat_file',
                             type=str,
                             metavar='anat_file',
-                            help='Nifti file in subject space that you want to visualise')
+                            help='Nifti or mgz file in subject space that you want to visualise')
 
     parser.add_argument('-o', '--overlay',
                             type=str,
                             metavar='overlay_file',
-                            help='Nifti file in subject space that you want to overlay',
+                            help='Nifti or mgz file in subject space that you want to overlay',
                             default=None)
 
     parser.add_argument('-a,', '--axis',
@@ -163,7 +163,11 @@ if hasattr(cm, cmap):
 #===============================================================================
 # Set up the output directory
 #===============================================================================
-pngs_dir = anat_file.rsplit('.nii', 1)[0] + '_PNGS'
+if '.mgz' in anat_file:
+    pngs_dir = anat_file.rsplit('.nii', 1)[0] + '_PNGS'
+else:
+    pngs_dir = anat_file.rsplit('.mgz', 1)[0] + '_PNGS'
+
 if not os.path.isdir(pngs_dir):
     os.makedirs(pngs_dir)
 
