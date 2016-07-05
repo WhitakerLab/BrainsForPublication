@@ -48,10 +48,11 @@ def setup_argparser():
                             metavar='anat_file',
                             help='Nifti file in subject space that you want to visualise')
 
-    #parser.add_argument(dest='overlay_file',
-    #                        type=str,
-    #                        metavar='overlay_file',
-    #                        help='Nifti file in subject space that you want to overlay')
+    parser.add_argument('-o', '--overlay',
+                            type=str,
+                            metavar='overlay_file',
+                            help='Nifti file in subject space that you want to overlay',
+                            default=None)
 
     parser.add_argument('-a,', '--axis',
                             type=str,
@@ -62,8 +63,14 @@ def setup_argparser():
     parser.add_argument('-c', '--cmap',
                             type=str,
                             metavar='cmap',
-                            help=textwrap.dedent('Any matplotlib colormap listed at\n  http://matplotlib.org/examples/color/colormaps_reference.html\nDefault: RdBu_r'),
+                            help=textwrap.dedent('Any matplotlib colormap listed at\n  http://matplotlib.org/examples/color/colormaps_reference.html\nDefault: gray'),
                             default='gray')
+
+    parser.add_argument('-oc', '--overlay_cmap',
+                            type=str,
+                            metavar='overlay_cmap',
+                            help=textwrap.dedent('Any matplotlib colormap listed at\n  http://matplotlib.org/examples/color/colormaps_reference.html\nDefault: prism'),
+                            default='prism')
 
     parser.add_argument('--black_bg',
                             action='store_true',
@@ -99,8 +106,10 @@ def setup_argparser():
 arguments, parser = setup_argparser()
 
 anat_file = arguments.anat_file
+overlay_file = arguments.overlay_file
 axis = arguments.axis
 cmap = arguments.cmap
+overlay_cmap = arguments.overlay_cmap
 threshold = arguments.thr
 black_bg = arguments.black_bg
 annotate = arguments.annotate
@@ -157,9 +166,9 @@ if hasattr(cm, cmap):
 pngs_dir = anat_file.rsplit('.nii', 1)[0] + '_PNGS'
 if not os.path.isdir(pngs_dir):
     os.makedirs(pngs_dir)
-'''
+
 #===============================================================================
-# Read in the image using nibabel
+# Read in the images using nibabel
 #===============================================================================
 img = nib.load(anat_file)
 
@@ -171,6 +180,13 @@ data = data.astype('float')
 # This step is actually included in the nilearn plot_anat command below
 # but it runs faster if the image has already been resliced.
 img_reslice = reorder_img(img, resample='continuous')
+
+# Do the same if you have an overlay file too
+if not overlay_file is None:
+    overlay_img = nib.load(overlay_file)
+    data = overlay_img.get_data()
+    data = data.astype('float')
+    overlay_img_reslice = reorder_img(overlayimg, resample='nearest')
 
 #===============================================================================
 # Plot each slice unless it's empty!
@@ -194,6 +210,10 @@ for i in np.arange(img_reslice.shape[dim_lookup_dict['x']], dtype='float'):
                                 draw_cross=draw_cross,
                                 cut_coords=(coord,))
 
+    # Add the overlay if given
+    if not overlay_file is None:
+        slicer.add_overlay(overlay_img_reslice, cmap=overlay_cmap)
+
     # Save the png file
     output_file = os.path.join(pngs_dir,
                        '{}_{:03.0f}.png'.format(label_lookup_dict[axis], i))
@@ -201,7 +221,7 @@ for i in np.arange(img_reslice.shape[dim_lookup_dict['x']], dtype='float'):
     slicer.savefig(output_file, dpi=dpi)
 
     slicer.close()
-'''
+
 #===============================================================================
 # Now make a gif!
 #===============================================================================
