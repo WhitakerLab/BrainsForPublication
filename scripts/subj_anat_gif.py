@@ -164,9 +164,9 @@ if hasattr(cm, cmap):
 # Set up the output directory
 #===============================================================================
 if '.mgz' in anat_file:
-    pngs_dir = anat_file.rsplit('.nii', 1)[0] + '_PNGS'
-else:
     pngs_dir = anat_file.rsplit('.mgz', 1)[0] + '_PNGS'
+else:
+    pngs_dir = anat_file.rsplit('.nii', 1)[0] + '_PNGS'
 
 if not os.path.isdir(pngs_dir):
     os.makedirs(pngs_dir)
