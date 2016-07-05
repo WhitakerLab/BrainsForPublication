@@ -177,12 +177,16 @@ if hasattr(cm, cmap):
     cmap = getattr(cm, cmap)
 
 #===============================================================================
-# Set up the output directory
+# Set up the output directory & gif file name
 #===============================================================================
 if '.mgz' in anat_file:
     pngs_dir = anat_file.rsplit('.mgz', 1)[0] + '_PNGS'
+    gif_file = (anat_file.rsplit('.mgz', 1)[0]
+                    + '_{}.gif'.format(label_lookup_dict[axis]))
 else:
     pngs_dir = anat_file.rsplit('.nii', 1)[0] + '_PNGS'
+    gif_file = (anat_file.rsplit('.nii', 1)[0]
+                    + '_{}.gif'.format(label_lookup_dict[axis]))
 
 if not os.path.isdir(pngs_dir):
     os.makedirs(pngs_dir)
@@ -248,8 +252,6 @@ for i in np.arange(img_reslice.shape[dim_lookup_dict[axis]], dtype='float'):
 #===============================================================================
 # Now make a gif!
 #===============================================================================
-gif_file = (anat_file.rsplit('.nii', 1)[0]
-                + '_{}.gif'.format(label_lookup_dict[axis]))
 
 png_list = glob(os.path.join(pngs_dir,
                     '{}*.png'.format(label_lookup_dict[axis])))
