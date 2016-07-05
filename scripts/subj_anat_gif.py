@@ -179,13 +179,24 @@ if hasattr(cm, cmap):
 #===============================================================================
 # Set up the output directory & gif file name
 #===============================================================================
+# First figure out the name of the overlay file
+if overlay_file is None:
+    overlay_name = ''
+elif '.mgz' in overlay_file:
+    overlay_name = '_' + os.path.basename(overlay_file).rsplit('.mgz', 1)[0]
+else:
+    overlay_name = '_' + os.path.basename(overlay_file).rsplit('.nii', 1)[0]
+
+# Add that overlay string to the pngs folder and gif file
 if '.mgz' in anat_file:
     pngs_dir = anat_file.rsplit('.mgz', 1)[0] + '_PNGS'
     gif_file = (anat_file.rsplit('.mgz', 1)[0]
+                    + overlay_name
                     + '_{}.gif'.format(label_lookup_dict[axis]))
 else:
     pngs_dir = anat_file.rsplit('.nii', 1)[0] + '_PNGS'
     gif_file = (anat_file.rsplit('.nii', 1)[0]
+                    + overlay_name
                     + '_{}.gif'.format(label_lookup_dict[axis]))
 
 if not os.path.isdir(pngs_dir):
