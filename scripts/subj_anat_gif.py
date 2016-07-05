@@ -254,7 +254,9 @@ for i in np.arange(img_reslice.shape[dim_lookup_dict[axis]], dtype='float'):
 
     # Save the png file
     output_file = os.path.join(pngs_dir,
-                       '{}_{:03.0f}.png'.format(label_lookup_dict[axis], i))
+                       '{}_{:03.0f}{}.png'.format(label_lookup_dict[axis],
+                                                    i,
+                                                    overlay_name))
 
     slicer.savefig(output_file, dpi=dpi)
 
@@ -265,8 +267,7 @@ for i in np.arange(img_reslice.shape[dim_lookup_dict[axis]], dtype='float'):
 #===============================================================================
 
 png_list = glob(os.path.join(pngs_dir,
-                    '{}*.png'.format(label_lookup_dict[axis])))
-
+                    '{}*{}.png'.format(label_lookup_dict[axis], overlay_name)))
 
 png_list.sort()
 
