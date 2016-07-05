@@ -48,7 +48,7 @@ def setup_argparser():
                             metavar='anat_file',
                             help='Nifti or mgz file in subject space that you want to visualise')
 
-    parser.add_argument('-o', '--overlay',
+    parser.add_argument('-o', '--overlay_file',
                             type=str,
                             metavar='overlay_file',
                             help='Nifti or mgz file in subject space that you want to overlay',
