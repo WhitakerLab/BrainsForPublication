@@ -69,7 +69,7 @@ def get_cluster_info(img, affine, data):
 def show_slices(data, affine, coords=None, cmap=None, prefix='cluster',
                 foldername=None, show_colorbar=None, showCross=False,
                 threshold=0, annotate=True, orientation='horizontal',
-                template='../templates/MNI152_T1_1mm_brain.nii.gz',
+                template='../scripts/templates/MNI152_T1_1mm_brain.nii.gz',
                 dpiRes=300, suffix='png', showTitle=False):
 
     # Specify colormap
