@@ -84,6 +84,7 @@ def writeOutputToScreen(atlasinfo, coord):
         else:
             for s in ainfo[1]:
                 print "{0:<30}{1:>4}% {2}".format(ainfo[0], s[0], s[1])
+    print "\n"
 
 
 def getAtlasinfo(coord, atlastype='all', probThresh=5, writeToScreen=True):
