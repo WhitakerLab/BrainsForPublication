@@ -1,5 +1,10 @@
 # BrainsForPublication
-Code and documentation for the Brains for Publication proposal for the 2016 OHBM Hackathon 
+Code and documentation for the Brains for Publication proposal for the 2016 OHBM Hackathon.
+
+## Release information
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.264123.svg)](https://doi.org/10.5281/zenodo.264123)
+
+The first release of the BrainsForPublication repository (`v0.1.0`) is backed up on Zenodo and can be cited with DOI: [10.5281/zenodo.264123](https://doi.org/10.5281/zenodo.264123).
 
 ## Some pretty pictures
 
