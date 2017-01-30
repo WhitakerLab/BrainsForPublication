@@ -1,6 +1,6 @@
-# Glass brain
+# MNI glass brain
 
-The `mri_glass_brain.py` script shows your 3D statistical maps on a glass brain.
+The `mni_glass_brain.py` script shows your 3D statistical maps on a glass brain.
 
 ## Input file
 
