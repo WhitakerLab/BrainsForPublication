@@ -1,0 +1,5 @@
+niiWrite(): error opening file fsaverageSubP/parcellation/500.new.aparc.nii.gz
+freeview.bin: could not scan # of lines from label file
+niiRead(): error opening file /work/imagingK/NSPN/workspaces/kw401/UCHANGE/COMPLETE_POST_EDITS/SUB_DATA/fsaverageSubP/FSL_MNI152_FreeSurferConformed_1mm.nii.gz
+niiRead(): error opening file /work/imagingK/NSPN/workspaces/kw401/UCHANGE/COMPLETE_POST_EDITS/SUB_DATA/fsaverageSubP/FSL_MNI152_FreeSurferConformed_1mm.nii.gz
+niiRead(): error opening file /work/imagingK/NSPN/workspaces/kw401/UCHANGE/COMPLETE_POST_EDITS/SUB_DATA/fsaverageSubP/FSL_MNI152_FreeSurferConformed_1mm.nii.gz
