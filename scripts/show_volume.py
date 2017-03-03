@@ -9,7 +9,7 @@ from nipy.labs import viz
 from os.path import join as opj
 from os.path import basename as opb
 from glob import glob as gg
-
+import future        # pip install future
 
 def get_labels(data, threshold=0, min_extent=0):
     """
@@ -124,9 +124,9 @@ def create_output(filePath, cluster_extend, threshold, template, create_CSV,
 
     # Catch if nlabels is 0, i.e. no clusters survived thresholding
     if nlabels == 0:
-        print 'No clusters survive the thresholds in %s' % filePath
+        print('No clusters survive the thresholds in %s') % filePath
     else:
-        print '%s clusters were found in %s' % (nlabels, filePath)
+        print('%s clusters were found in %s') % (nlabels, filePath)
         coords, clusterInfo = get_cluster_info(labels, affine, data)
 
         # Get file prefix
@@ -156,11 +156,11 @@ def create_output(filePath, cluster_extend, threshold, template, create_CSV,
 
             # Print cluster info in terminal
             row_format = "{:>8}{:>8}{:>8}{:>10}{:>16}{:>16}{:>16}{:>16}"
-            print row_format.format(
-                *['X', 'Y', 'Z', 'Size', 'Max', 'Min', 'Mean', 'Std'])
+            print(row_format.format(
+                *['X', 'Y', 'Z', 'Size', 'Max', 'Min', 'Mean', 'Std']))
             for c in clusterInfo:
-                print row_format.format(*c)
-            print '\n'
+                print(row_format.format(*c))
+            print('\n')
 
 
 if __name__ == "__main__":
