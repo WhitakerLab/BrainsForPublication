@@ -16,7 +16,7 @@ Want to project your 3D statistical maps through a glass brain? Check out ***[mr
   width=70%/>
 <BR CLEAR=ALL>
 
-Want to see where the clusters in your 3D statistical maps are? Check out ***[show_cluster_in_volume.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+Want to see where the clusters in your 3D statistical maps are? Check out ***[show_cluster_in_volume.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/show_cluster_in_volume.md)***
 
 <img
   src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/cluster00.png"
