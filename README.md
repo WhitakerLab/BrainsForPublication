@@ -8,7 +8,7 @@ The first release of the BrainsForPublication repository (`v0.1.0`) is backed up
 
 ## Some pretty pictures
 
-Want to project your 3D statistical maps through a glass brain? Check out ***[mri_glass_brain.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+Want to project your 3D statistical maps through a glass brain? Check out ***[mni_glass_brain.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
 
 <img
   src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/ALL_N95_Mean_cope2_thresh_zstat1_GlassBrain_ortho.png"
