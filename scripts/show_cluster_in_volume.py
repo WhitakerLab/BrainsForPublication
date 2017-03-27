@@ -37,7 +37,7 @@ def setup_argparser():
     Also allows you to change some settings
     '''
     # Build a basic parser.
-    help_text = ('Show the locations of clusters in a statistical map in MNI space')
+    help_text = ('Show the locations of clusters in a statistical map in MNI space.')
 
     sign_off = 'Author: Kirstie Whitaker <kw401@cam.ac.uk>'
 
@@ -49,44 +49,49 @@ def setup_argparser():
     parser.add_argument(dest='stats_file',
                             type=str,
                             metavar='stats_file',
-                            help='Nifti file in MNI space containing the \n  statistical values you want to visualise')
+                            help=textwrap.dedent('3D nifti file in MNI space containing the statistical values\n ' +
+                                                  'you want to visualise.\n' +
+                                                  'Note that this file can be pre-thresholded or not.\n' +
+                                                  'If your file is already thresholded then you will need to\n ' +
+                                                  'pass an argument to the -t option otherwise it will default to 2.3.\n ' +
+                                                  'A suggested value is 0.01.' ))
 
     parser.add_argument('-ce, --cluster_extent',
                             type=str,
                             metavar='cluster_extent',
-                            help=textwrap.dedent("Minimum cluster extent for a region to be included in the visualisation\n (integer)\nDefault: 20"),
+                            help=textwrap.dedent("Minimum cluster extent for a region to be included in the visualisation\n (integer)\n Default: 20"),
                             default=20)
 
     parser.add_argument('-t, --cluster_thr',
                             type=str,
                             metavar='threshold',
-                            help=textwrap.dedent("Minimum statistical value for a region to be included in the visualisation\n (float)\nDefault: 2.3"),
+                            help=textwrap.dedent("Minimum statistical value for a region to be included in the visualisation\n (float)\n Default: 2.3"),
                             default=2.3)
 
     parser.add_argument('--csv',
                             action='store_true',
-                            help=textwrap.dedent('Create a csv file with cluster information.\nDefault: False'),
+                            help=textwrap.dedent('Create a csv file with cluster information.\n Default: False'),
                             default=False)
 
     parser.add_argument('--cluster_title',
                             action='store_true',
-                            help=textwrap.dedent('Show cluster information in the title of the plot.\nDefault: False'),
+                            help=textwrap.dedent('Show cluster information in the title of the plot.\n Default: False'),
                             default=False)
 
     parser.add_argument('-c', '--cmap',
                             type=str,
                             metavar='cmap',
-                            help=textwrap.dedent('Any matplotlib colormap listed at\n  http://matplotlib.org/examples/color/colormaps_reference.html\nDefault: RdBu_r'),
+                            help=textwrap.dedent('Any matplotlib colormap listed at\n  http://matplotlib.org/examples/color/colormaps_reference.html\n Default: RdBu_r'),
                             default='hot')
 
     parser.add_argument('-cb', '--cbar',
                             action='store_true',
-                            help=textwrap.dedent('Display a colorbar on the right of the plots\nDefault: False'),
+                            help=textwrap.dedent('Display a colorbar on the right of the plots\n Default: False'),
                             default=False)
 
     parser.add_argument('--black_bg',
                             action='store_true',
-                            help=textwrap.dedent('Set the background to black.\nDefault: White'),
+                            help=textwrap.dedent('Set the background to black.\n Default: White'),
                             default=False)
     """
     parser.add_argument('--thr_abs',
@@ -116,13 +121,13 @@ def setup_argparser():
     parser.add_argument('--dpi',
                             type=float,
                             metavar='dpi',
-                            help='DPI of output png file\nDefault: 300',
+                            help='DPI of output png file\n Default: 300',
                             default=300)
 
     parser.add_argument('--format',
                             type=float,
                             metavar='format',
-                            help=textwrap.dedent('Format of the output image file.\n Eg: png, pdf, tif, jpeg, svg. \nDefault: png'),
+                            help=textwrap.dedent('Format of the output image file.\n Eg: png, pdf, tif, jpeg, svg. \n Default: png'),
                             default='png')
 
     arguments = parser.parse_args()
@@ -404,10 +409,46 @@ if __name__ == "__main__":
     imageType = str(sys.argv[11])
     prefix = str(sys.argv[12])
 
-    # Go through all the files in the data folder
-    fileList = gg('data/*')
-    for fpath in fileList:
-        create_output(
-            fpath, cluster_extend, threshold, template, create_CSV, show_cross,
-            annotate_figure, show_colorbar, colorbar_orientation, show_title,
-            dpi, imageType, prefix)
+    #=========================================================================
+    # SET SOME VARIABLES
+    #=========================================================================
+    # Read in the arguments from argparse
+    arguments, parser = setup_argparser()
+
+    stats_file = arguments.stats_file
+    cluster_extent = arguments.cluster_extent
+    cluster_thr = arguments.cluster_thr
+    store_csv = arguments.csv
+    cluster_title = arguments.cluster_title
+    cmap = arguments.cmap
+    show_colorbar = arguments.cbar
+    #thr_abs = arguments.thr_abs
+    #thr_pos = arguments.thr_pos
+    #black_bg = arguments.black_bg
+    #lower_thresh = arguments.lower
+    #upper_thresh = arguments.upper
+    dpi = arguments.dpi
+    image_format = arguments.format
+
+
+    #===============================================================================
+    # Get the colormap from nilearn
+    #===============================================================================
+    if hasattr(cm, cmap):
+        cmap = getattr(cm, cmap)
+
+
+    #===============================================================================
+    # Create the output folder
+    #===============================================================================
+    output_folder = '{}_CLUSTERS'.format(stats_file.rsplit('.nii', 1)[0])
+
+    if not os.isdir(output_folder):
+        os.path.makedirs(output_folder)
+
+    #===============================================================================
+    # Create the figures and CSV output
+    #===============================================================================
+    create_output(stats_file, cluster_extent, threshold, template, create_CSV,
+                      show_cross, annotate_figure, cmap, show_colorbar,
+                      show_title, dpi, imageType)
