@@ -28,6 +28,9 @@ import matplotlib.gridspec as gridspec
 import matplotlib.colors as mcolors
 import matplotlib.cm as cm
 
+# Make this function work for Python 2 & 3
+from __future__ import print_function
+
 #=============================================================================
 # FUNCTIONS
 #=============================================================================
@@ -446,7 +449,7 @@ elif surface == 'inflated':
 elif surface == 'pial':
     surface_list = [ "pial" ]
 else:
-    print "Do not recognise surface. Check {}".format(surface)
+    print("Do not recognise surface. Check {}".format(surface))
     parser.print_help()
     sys.exit()
 
@@ -455,12 +458,14 @@ views_list = [ 'medial', 'lateral' ]
 
 # Check that the inputs exist:
 if not os.path.isfile(roi_data_file):
-    print "Roi data file doesn't exist"
+    print("Roi data file doesn't exist")
+    parser.print_help()
     sys.exit()
 
 if not os.path.isdir(os.path.join(subjects_dir, subject_id, "surf")):
-    print "Fsaverage directory doesn't exist"
-    print "Check subjects_dir and subject_id"
+    print("Fsaverage directory doesn't exist")
+    print("Check subjects_dir and subject_id")
+    parser.print_help()
     sys.exit()
 
 #=============================================================================
