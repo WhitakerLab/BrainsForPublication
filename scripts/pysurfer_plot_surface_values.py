@@ -248,6 +248,143 @@ def combine_pngs(surface, output_dir):
     fig.savefig(filename, bbox_inches=0, dpi=300)
 
 
+def add_four_hor_brains(grid, f_list, fig):
+    '''
+    Take the four pysurfer views (left lateral, left medial,
+    right medial and right lateral) and arrange them in a row
+    according to the grid positions given by grid
+
+    grid    :  the gridspec list of grid placements
+    f_list  :  list of four file pysurfer image files
+    big_fig :  the figure to which you're adding the images
+
+    # THIS WAS UPDATED TO INCLUDE PLOTTING IN A GRID
+    # Should probably change the function name!
+    '''
+    for g_loc, f in zip(grid, f_list):
+        img = mpimg.imread(f)
+        # Crop the figures appropriately
+        # NOTE: this can change depending on which system you've made the
+        # images on originally - it's a bug that needs to be sorted out!
+        if 'lateral' in f:
+            img_cropped = img[115:564, 105:(-100),:]
+        else:
+            img_cropped = img[90:560, 60:(-55),:]
+
+        # Add an axis to the figure
+        ax_brain = plt.Subplot(fig, g_loc)
+        fig.add_subplot(ax_brain)
+
+        # Show the brain on this axis
+        ax_brain.imshow(img_cropped, interpolation='none')
+        ax_brain.set_axis_off()
+
+    return fig
+
+def add_colorbar(grid, big_fig, cmap_name, y_min=0, y_max=1, cbar_min=0, cbar_max=1, vert=False, label=None, show_ticks=True, pad=0):
+    # Set the seaborn context and style
+    sns.set(style="white")
+    sns.set_context("poster", font_scale=3)
+    '''
+    Add a colorbar to the big_fig in the location defined by grid
+
+    grid       :  grid spec location to add colormap
+    big_fig    :  figure to which colorbar will be added
+    cmap_name  :  name of the colormap
+    x_min      :  the minimum value to plot this colorbar between
+    x_max      :  the maximum value to plot this colorbar between
+    cbar_min   :  minimum value for the colormap (default 0)
+    cbar_max   :  maximum value for the colormap (default 1)
+    vert       :  whether the colorbar should be vertical (default False)
+    label      :  the label for the colorbar (default: None)
+    ticks      :  whether to put the tick values on the colorbar (default: True)
+    pad        :  how much to shift the colorbar label by (default: 0)
+    '''
+    import matplotlib as mpl
+    from matplotlib.colors import LinearSegmentedColormap
+
+    # Add an axis to the big_fig
+    ax_cbar = plt.Subplot(big_fig, grid)
+    big_fig.add_subplot(ax_cbar)
+
+    # Normalise the colorbar so you have the correct upper and
+    # lower limits and define the three ticks you want to show
+    norm = mpl.colors.Normalize(vmin=cbar_min, vmax=cbar_max)
+
+    if show_ticks:
+        ticks = [y_min, np.average([y_min, y_max]), y_max]
+    else:
+        ticks=[]
+
+    # Figure out the orientation
+    if vert:
+        orientation='vertical'
+        rotation=270
+    else:
+        orientation='horizontal'
+        rotation=0
+
+    # Add in your colorbar:
+    cb = mpl.colorbar.ColorbarBase(ax_cbar,
+                                       cmap=cmap_name,
+                                       norm=norm,
+                                       orientation=orientation,
+                                       ticks=ticks,
+                                       boundaries=np.linspace(y_min, y_max, 300))
+
+    if label:
+        cb.set_label(label, rotation=rotation, labelpad=pad)
+
+    return big_fig
+
+
+def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap):
+
+    # Set up the figure
+    fig, ax = plt.subplots(figsize=(20,6), facecolor='white')
+
+    # Set up the grid
+    grid = gridspec.GridSpec(1,4)
+    grid.update(left=0.01, right=0.99, top=1.05, bottom=0.2, wspace=0, hspace=0)
+
+    # Set up the file list
+    f_list = [ '_'.join([os.path.join(output_dir, measure), 'lh', surface, cortex_style, 'lateral.png']),
+               '_'.join([os.path.join(output_dir, measure), 'lh', surface, cortex_style, 'medial.png']),
+               '_'.join([os.path.join(output_dir, measure), 'rh', surface, cortex_style, 'medial.png']),
+               '_'.join([os.path.join(output_dir, measure), 'rh', surface, cortex_style, 'lateral.png']) ]
+
+    # Add the brains
+    fig = add_four_hor_brains(grid, f_list, fig)
+
+    # Set up the colorbar grid
+    cb_grid = gridspec.GridSpec(1,1)
+
+    cb_grid.update(left=0.2,
+                        right=0.8,
+                        bottom=0.2,
+                        top=0.25,
+                        wspace=0,
+                        hspace=0)
+
+    fig = add_colorbar(cb_grid[0], fig,
+                            cmap_name=cmap,
+                            cbar_min=l,
+                            cbar_max=u,
+                            y_min=l,
+                            y_max=u,
+                            label='')
+
+    # Turn off the axis
+    ax.set_axis_off()
+
+    # Save the figure
+    filename = os.path.join(output_dir, '{}_{}_{}_FourHorBrains.png'.format(measure, surface, cortex_style))
+    fig.savefig(filename, dpi=300)
+
+    # Close the figure
+    plt.close('all')
+
+
 #=============================================================================
 # SET SOME VARIABLES
 #=============================================================================
@@ -353,3 +490,8 @@ for hemi, surface in it.product(hemi_list, surface_list):
 #=============================================================================
 for surface in surface_list:
     combine_pngs(surface, output_dir)
+    brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap)
+
+# You're done :)
+# Happy International Women's Day 2017
+# <3 Kx
