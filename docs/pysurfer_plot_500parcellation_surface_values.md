@@ -11,6 +11,7 @@ The `pysurfer_plot_500parcellation_surface_values.py` script visualises a list o
 4. [Mayavi](http://mayavi.sourceforge.net/install.html) by typing ```conda install mayavi```
 5. [Nibabel](http://nipy.sourceforge.net/nibabel/installation.html#installation) by typing ```pip install nibabel```
 6. [pysurfer](http://pysurfer.github.io/install.html) by typing ```pip install pysurfer```
+7. [seaborn](http://seaborn.pydata.org/index.html) ```pip install seaborn```
 
 Please note - if you try to google how to install either VTK or mayavi you will end up in a world of pain! Anaconda will be your friend...I hope!
 
