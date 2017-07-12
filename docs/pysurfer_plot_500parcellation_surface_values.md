@@ -7,8 +7,12 @@ The `pysurfer_plot_500parcellation_surface_values.py` script visualises a list o
 
 1. [Freesurfer](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall)
 2. [anaconda](http://continuum.io/downloads#all) with python version ```2.7``` :
-3. [VTK](http://www.vtk.org/VTK/resources/software.html#latestcand) by typing ```conda install vtk```
-4. [Mayavi](http://mayavi.sourceforge.net/install.html) by typing ```pip install mayavi```
+3. [VTK](http://www.vtk.org/VTK/resources/software.html#latestcand)
+4. [Mayavi](http://mayavi.sourceforge.net/install.html) by typing
+  Note that there can be some crazy complicated installation challenges if you try to install these three separately as there will be conflicts in different dependencies. The fix is to let anaconda do its magic by installing all at the same time:
+    
+    ```conda create -yn py27-b4p vtk mayavi python=2.7 anaconda```
+
 5. [Nibabel](http://nipy.sourceforge.net/nibabel/installation.html#installation) by typing ```pip install nibabel```
 6. [pysurfer](http://pysurfer.github.io/install.html) by typing ```pip install pysurfer```
 7. [seaborn](http://seaborn.pydata.org/index.html) ```pip install seaborn```
