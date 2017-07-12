@@ -6,6 +6,8 @@ The `pysurfer_plot_500parcellation_surface_values.py` script visualises a list o
 ## Required Installations
 
 1. [Freesurfer](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall)
+
+
 2. [anaconda](http://continuum.io/downloads#all) with python version ```2.7```
 3. [VTK](http://www.vtk.org/VTK/resources/software.html#latestcand)
 4. [Mayavi](http://mayavi.sourceforge.net/install.html)
