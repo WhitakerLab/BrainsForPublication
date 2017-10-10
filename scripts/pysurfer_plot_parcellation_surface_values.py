@@ -574,6 +574,8 @@ if __name__ == "__main__":
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
 
+        print (names)
+
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
 
