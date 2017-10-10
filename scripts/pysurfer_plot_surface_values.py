@@ -29,7 +29,7 @@ import matplotlib.gridspec as gridspec
 def setup_argparser():
     '''
     Code to read in arguments from the command line
-    Aso allows you to change some settings
+    Also allows you to change some settings
     '''
     # Build a basic parser.
     help_text = ('Plot values on a freesurfer surface')
@@ -42,7 +42,7 @@ def setup_argparser():
     parser.add_argument(dest='overlay_file',
                             type=str,
                             metavar='overlay_file',
-                            help='overlay file in with the hemisphere in the first two letters')
+                            help='overlay file with the hemisphere in the first two letters')
 
     parser.add_argument(dest='output_dir',
                             type=str,
@@ -100,7 +100,6 @@ def setup_argparser():
                             metavar='upperthr',
                             help='upper limit for colorbar',
                             default=None)
-
 
     parser.add_argument('-s', '--surface',
                             type=str,
