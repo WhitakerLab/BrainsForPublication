@@ -67,7 +67,8 @@ def setup_argparser():
                             type=str,
                             metavar='subjects_dir',
                             help='freesurfer subjects dir',
-                            default=os.path.join(sys.argv[0], '..', 'required_data'))
+                            default=os.path.join(os.dirname(sys.argv[0]),
+                                                 '..', 'required_data'))
 
     parser.add_argument('-c', '--cmap',
                             type=str,
