@@ -9,6 +9,8 @@
 #=============================================================================
 # IMPORTS
 #=============================================================================
+from __future__ import print_function
+
 import os
 import sys
 import argparse
@@ -526,7 +528,7 @@ if __name__ == "__main__":
     elif surface == 'pial':
         surface_list = [ "pial" ]
     else:
-        print "Do not recognise surface. Check {}".format(surface)
+        print ("Do not recognise surface. Check {}".format(surface))
         parser.print_help()
         sys.exit()
 
@@ -535,12 +537,12 @@ if __name__ == "__main__":
 
     # Check that the inputs exist:
     if not os.path.isfile(roi_data_file):
-        print "Roi data file doesn't exist"
+        print ("Roi data file doesn't exist")
         sys.exit()
 
     if not os.path.isdir(os.path.join(subjects_dir, subject_id, "surf")):
-        print "Fsaverage directory doesn't exist"
-        print "Check subjects_dir and subject_id"
+        print ("Fsaverage directory doesn't exist")
+        print ("Check subjects_dir and subject_id")
         sys.exit()
 
     #---------------------------------------------------------------------------
