@@ -476,7 +476,7 @@ def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap):
 
 #===============================================================================
 
-if __name__ == "__main__"
+if __name__ == "__main__":
 
     #---------------------------------------------------------------------------
     # Read in the arguments from argparse
