@@ -206,6 +206,8 @@ def make_colorbar(l, u, cmap, color_file):
         # Set l and u so that they're the same for both hemispheres
         l, u = calc_range(df[0], l, u, thresh, center)
 
+    print (cmap)
+
     return l, u, cmap
 
 #------------------------------------------------------------------------------
