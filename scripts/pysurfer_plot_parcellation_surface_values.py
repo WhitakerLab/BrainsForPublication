@@ -575,7 +575,8 @@ if __name__ == "__main__":
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
 
         print (names)
-
+        print (df.columns)
+        
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
 
