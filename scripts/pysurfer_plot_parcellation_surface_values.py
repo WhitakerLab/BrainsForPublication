@@ -566,7 +566,7 @@ if __name__ == "__main__":
         # the label folder of your fsaverage subject folder
         aparc_file = os.path.join(subjects_dir,
                               subject_id, "label",
-                              "{}.{}.annot".format(hemi, annot_name)
+                              "{}.{}.annot".format(hemi, annot_name))
 
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
