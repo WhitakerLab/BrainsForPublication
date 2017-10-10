@@ -248,9 +248,6 @@ def plot_surface(vtx_data,
                       size=(800, 665),
                       cortex=cortex_style)
 
-    print (thresh)
-    print (thresh2)
-
     # Create an empty brain if the values are all below threshold
     if np.max(vtx_data) < thresh:
         # Add your data to the brain
@@ -265,6 +262,7 @@ def plot_surface(vtx_data,
     # then add the data!
     elif not thresh2:
         # Add your data to the brain
+        print (cmap)
         brain.add_data(vtx_data,
                         l,
                         u,
@@ -273,7 +271,6 @@ def plot_surface(vtx_data,
                         alpha=.8)
 
     else:
-        print ("am I here?")
         # Plot the data twice for the two
         # different settings
         vtx_data1 = np.copy(vtx_data)
