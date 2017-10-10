@@ -574,9 +574,9 @@ if __name__ == "__main__":
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
 
-        print (names)
-        print (df.columns)
-        
+        print (names[::10])
+        print (df.columns[::10])
+
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
 
@@ -584,6 +584,7 @@ if __name__ == "__main__":
         # for this hemisphere then add that value to the roi_data array
         for i, name in enumerate(names):
             roi_name = '{}_{}'.format(hemi, name)
+            roi_name = name
 
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
