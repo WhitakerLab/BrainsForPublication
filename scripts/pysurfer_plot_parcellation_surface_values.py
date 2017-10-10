@@ -262,7 +262,6 @@ def plot_surface(vtx_data,
     # then add the data!
     elif not thresh2:
         # Add your data to the brain
-        print (cmap)
         brain.add_data(vtx_data,
                         l,
                         u,
@@ -592,7 +591,6 @@ if __name__ == "__main__":
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
-        print (cmap)
         # Show this data on a brain
         plot_surface(vtx_data, subject_id, hemi,
                          surface, subjects_dir,
