@@ -554,7 +554,7 @@ if __name__ == "__main__":
     df = pd.read_csv(roi_data_file, index_col=False, header=None)
 
     # Make custom colorbar
-    cmap, l, u = make_colorbar(l, u, cmap, color_file)
+    l, u, cmap = make_colorbar(l, u, cmap, color_file)
 
     # Now rearrange the data frame and match it up with
     # the aparc names
