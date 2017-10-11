@@ -1,7 +1,6 @@
 lh_bankssts
 lh_caudalanteriorcingulate
 lh_caudalmiddlefrontal
-lh_corpuscallosum
 lh_cuneus
 lh_entorhinal
 lh_fusiform
@@ -36,7 +35,6 @@ lh_insula
 rh_bankssts
 rh_caudalanteriorcingulate
 rh_caudalmiddlefrontal
-rh_corpuscallosum
 rh_cuneus
 rh_entorhinal
 rh_fusiform
