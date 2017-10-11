@@ -581,8 +581,7 @@ if __name__ == "__main__":
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
 
-        print (len(names))
-        print (len(labels))
+        print (names)
 
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
@@ -594,6 +593,9 @@ if __name__ == "__main__":
 
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
+
+            else:
+                roi_data[i] = -99
 
         print (roi_data.shape)
 
