@@ -581,8 +581,8 @@ if __name__ == "__main__":
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
 
-        print (names)
-        print (labels)
+        print (len(names))
+        print (len(labels))
 
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
@@ -595,9 +595,12 @@ if __name__ == "__main__":
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
 
+        print (roi_data.shape)
+
         # Make a vector containing the data point at each vertex.
         vtx_data = roi_data[labels]
 
+        print (vtx_data.shape)
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
