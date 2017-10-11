@@ -610,6 +610,9 @@ if __name__ == "__main__":
         print (vtx_data)
         print ('Shape of vtx_data: {}'.format(vtx_data.shape))
 
+        print (len(vtx_data[vtx_data==-99]))
+        print (len(vtx_data[vtx_data==0]))
+        
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
