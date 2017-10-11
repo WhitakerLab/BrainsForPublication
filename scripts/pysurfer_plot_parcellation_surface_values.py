@@ -581,11 +581,15 @@ if __name__ == "__main__":
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
 
+        print (labels)
+        print ('Shape of labels: {}'.format(labels.shape))
         print (names)
+        print ('Shape of names: {}'.format(names.shape))
 
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
         print (roi_data)
+        print ('Shape of roi_data: {}'.format(roi_data.shape))
 
         # Loop through the names and if they are in the data frame
         # for this hemisphere then add that value to the roi_data array
@@ -603,7 +607,8 @@ if __name__ == "__main__":
         # Make a vector containing the data point at each vertex.
         vtx_data = roi_data[labels]
 
-        print (vtx_data.shape)
+        print (vtx_data)
+        print ('Shape of vtx_data: {}'.format(vtx_data.shape))
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
