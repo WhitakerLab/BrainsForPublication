@@ -593,9 +593,9 @@ if __name__ == "__main__":
 
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
-
             else:
                 roi_data[i] = -99
+                print ('Setting {} to -99'.format(name))
 
         print (roi_data.shape)
 
