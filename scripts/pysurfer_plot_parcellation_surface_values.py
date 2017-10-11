@@ -568,8 +568,8 @@ if __name__ == "__main__":
         # Read in aparc annot file which will be inside
         # the label folder of your fsaverage subject folder
         aparc_file = os.path.join(subjects_dir,
-                              subject_id, "label",
-                              "{}.{}.annot".format(hemi, annot_name))
+                                  subject_id, "label",
+                                  "{}.{}.annot".format(hemi, annot_name))
 
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
@@ -580,11 +580,12 @@ if __name__ == "__main__":
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
 
+        print (roi_data.shape)
+
         # Loop through the names and if they are in the data frame
         # for this hemisphere then add that value to the roi_data array
         for i, name in enumerate(names):
             roi_name = '{}_{}'.format(hemi, name)
-            roi_name = name
 
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
