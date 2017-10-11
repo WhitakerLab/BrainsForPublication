@@ -54,7 +54,10 @@ def setup_argparser():
     parser.add_argument('--annot_name',
                             type=str,
                             metavar='annot_name',
-                            help='name of annot file that contains the parcellation',
+                            help=('name of annot file that contains the parcellation\n' +
+                                  'the code has been tested with aparc, 500.aparc,\n' +
+                                  'economo and HCP annot files that are shipped within\n' +
+                                  'the required_data/fsaverageSubP directory'),
                             default='500.aparc')
 
     parser.add_argument('--fsaverageid',
