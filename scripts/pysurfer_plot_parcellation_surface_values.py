@@ -579,9 +579,10 @@ if __name__ == "__main__":
                                   "{}.{}.annot".format(hemi, annot_name))
         # Also read in the cortex label file which you'll
         # use to make sure you don't visualise the medial wall
-        cortex_label_file = os.path.join(subjects_dir,
-                                         subject_id, "label",
-                                        "{}.cortex.label".format(hemi))
+        cortex_label_file, cortex_label_values = os.path.join(subjects_dir,
+                                                              subject_id, "label",
+                                                              "{}.cortex.label".format(hemi),
+                                                              read_scalars=True)
 
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
@@ -591,8 +592,10 @@ if __name__ == "__main__":
         print (list(set(labels)))
         print ('Shape of labels: {}'.format(labels.shape))
         print (cortex_labels)
-        print (list(set(cortex_labels)))
-        print ('Shape of cortex_labels: {}'.format(labels.shape))
+        print ('Shape of cortex_labels: {}'.format(cortex_labels.shape))
+        print (cortex_label_values)
+        print (list(set(cortex_label_values)))
+        print ('Shape of cortex_labels: {}'.format(cortex_label_values.shape))
 
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
