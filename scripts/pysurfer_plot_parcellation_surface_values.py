@@ -577,6 +577,7 @@ if __name__ == "__main__":
         aparc_file = os.path.join(subjects_dir,
                                   subject_id, "label",
                                   "{}.{}.annot".format(hemi, annot_name))
+
         # Also read in the cortex label file which you'll
         # use to make sure you don't visualise the medial wall
         cortex_label_file= os.path.join(subjects_dir,
@@ -587,16 +588,8 @@ if __name__ == "__main__":
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
         ctx_labels= nib.freesurfer.read_label(cortex_label_file)
 
-        print (labels)
-        print (list(set(labels)))
-        print ('Shape of labels: {}'.format(labels.shape))
-        print (ctx_labels)
-        print ('Shape of cortex_labels: {}'.format(ctx_labels.shape))
-
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
-        print (roi_data)
-        print ('Shape of roi_data: {}'.format(roi_data.shape))
 
         # Loop through the names and if they are in the data frame
         # for this hemisphere then add that value to the roi_data array
@@ -606,25 +599,15 @@ if __name__ == "__main__":
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
 
-        print (roi_data)
+        print df.columns
 
         # Make a vector containing the data point at each vertex.
         vtx_data = roi_data[labels]
 
         # Set vertex data that lies outside of cortex to -99
-        med_wall_labels = [ i for i in labels if i not in ctx_labels ]
-
-        print(np.min(vtx_data[med_wall_labels]))
-        print(np.max(vtx_data[med_wall_labels]))
+        med_wall_labels = np.setdiff1d(labels, ctx_labels, assume_unique=True)
         vtx_data[med_wall_labels] = -99
-        print(vtx_data[med_wall_labels])
-        print ('Shape of vtx_data: {}'.format(vtx_data.shape))
-        print ('Shape of vtx_data in med wall: {}'.format(vtx_data[med_wall_labels].shape))
-        print (vtx_data.min())
-        print (vtx_data.max())
-        #print (len(vtx_data[vtx_data==-99]))
-        #print (len(vtx_data[vtx_data==0]))
-
+        
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
