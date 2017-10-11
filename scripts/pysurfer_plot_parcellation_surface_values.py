@@ -585,6 +585,7 @@ if __name__ == "__main__":
 
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
+        print (roi_data)
 
         # Loop through the names and if they are in the data frame
         # for this hemisphere then add that value to the roi_data array
@@ -597,7 +598,7 @@ if __name__ == "__main__":
                 roi_data[i] = -99
                 print ('Setting {} to -99'.format(name))
 
-        print (roi_data.shape)
+        print (roi_data)
 
         # Make a vector containing the data point at each vertex.
         vtx_data = roi_data[labels]
