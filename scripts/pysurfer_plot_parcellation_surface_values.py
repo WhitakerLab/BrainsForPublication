@@ -128,6 +128,12 @@ def setup_argparser():
                             help='cortex style - one of "classic", "bone", "high_contrast" or "low_contrast"',
                             default='classic')
 
+    parser.add_argument('-d', '--dpi',
+                            type=float,
+                            metavar='dpi',
+                            help='resolution of output combined pictures',
+                            default=300)
+
     arguments = parser.parse_args()
 
     return arguments, parser
@@ -295,7 +301,7 @@ def plot_surface(vtx_data,
                         colorbar = range(len(views_list)) )
 
 #-----------------------------------------------------------------------------
-def combine_pngs(measure, surface, output_dir, cortex_style):
+def combine_pngs(measure, surface, output_dir, cortex_style, dpi):
     '''
     Find four images and combine them into one nice picture
     '''
@@ -338,7 +344,7 @@ def combine_pngs(measure, surface, output_dir, cortex_style):
 
     # Save the figure
     filename = os.path.join(output_dir, '{}_{}_{}_combined.png'.format(measure, surface, cortex_style))
-    fig.savefig(filename, bbox_inches=0, dpi=300)
+    fig.savefig(filename, bbox_inches=0, dpi=dpi)
 
 
 def add_four_hor_brains(grid, f_list, fig):
@@ -431,7 +437,7 @@ def add_colorbar(grid, big_fig, cmap_name, y_min=0, y_max=1, cbar_min=0, cbar_ma
     return big_fig
 
 
-def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap):
+def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap, dpi):
 
     # Set up the figure
     fig, ax = plt.subplots(figsize=(20,6), facecolor='white')
@@ -472,7 +478,7 @@ def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap):
 
     # Save the figure
     filename = os.path.join(output_dir, '{}_{}_{}_FourHorBrains.png'.format(measure, surface, cortex_style))
-    fig.savefig(filename, dpi=300)
+    fig.savefig(filename, dpi=dpi)
 
     # Close the figure
     plt.close('all')
@@ -500,6 +506,7 @@ if __name__ == "__main__":
     thresh = arguments.thresh
     thresh2 = arguments.thresh2
     cortex_style = arguments.cortex_style
+    dpi = arguments.dpi
 
     # Define the output directory
     output_dir = os.path.join(os.path.dirname(roi_data_file), 'PNGS')
@@ -608,8 +615,8 @@ if __name__ == "__main__":
     # COMBINE THE IMAGES
     #=============================================================================
     for surface in surface_list:
-        combine_pngs(measure, surface, output_dir, cortex_style)
-        brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap)
+        combine_pngs(measure, surface, output_dir, cortex_style, dpi)
+        brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap, dpi)
 
 
 # You're done :)
