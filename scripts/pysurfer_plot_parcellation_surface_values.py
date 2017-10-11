@@ -583,8 +583,6 @@ if __name__ == "__main__":
 
         print (labels)
         print ('Shape of labels: {}'.format(labels.shape))
-        print (names)
-        print ('Shape of names: {}'.format(len(names)))
 
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
@@ -612,7 +610,7 @@ if __name__ == "__main__":
 
         print (len(vtx_data[vtx_data==-99]))
         print (len(vtx_data[vtx_data==0]))
-        
+
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
