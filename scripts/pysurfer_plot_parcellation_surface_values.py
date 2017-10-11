@@ -585,17 +585,13 @@ if __name__ == "__main__":
 
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
-        ctx_labels, ctx_lab_vals = nib.freesurfer.read_label(cortex_label_file,
-                                                             read_scalars=True)
+        ctx_labels= nib.freesurfer.read_label(cortex_label_file)
 
         print (labels)
         print (list(set(labels)))
         print ('Shape of labels: {}'.format(labels.shape))
         print (ctx_labels)
         print ('Shape of cortex_labels: {}'.format(ctx_labels.shape))
-        print (ctx_lab_vals)
-        print (list(set(ctx_lab_vals)))
-        print ('Shape of cortex_labels: {}'.format(ctx_lab_vals.shape))
 
         # Create an empty roi_data array
         roi_data = np.ones(len(names))*(thresh-1.0)
@@ -618,12 +614,15 @@ if __name__ == "__main__":
         # Make a vector containing the data point at each vertex.
         vtx_data = roi_data[labels]
 
-        print (vtx_data)
-        print ('Shape of vtx_data: {}'.format(vtx_data.shape))
-        print (vtx_data.min())
-        print (vtx_data.max())
-        print (len(vtx_data[vtx_data==-99]))
-        print (len(vtx_data[vtx_data==0]))
+        # Set vertex data that lies outside of cortex to -99
+        med_wall_labels = [ i for i in labels if i not in ctx_labels ]
+
+        print(vtx_data[med_wall_labels])
+        #print ('Shape of vtx_data: {}'.format(vtx_data.shape))
+        #print (vtx_data.min())
+        #print (vtx_data.max())
+        #print (len(vtx_data[vtx_data==-99]))
+        #print (len(vtx_data[vtx_data==0]))
 
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
