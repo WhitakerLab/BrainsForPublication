@@ -599,7 +599,7 @@ if __name__ == "__main__":
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
 
-        print df.columns
+        print (df.columns)
 
         # Make a vector containing the data point at each vertex.
         vtx_data = roi_data[labels]
@@ -607,7 +607,7 @@ if __name__ == "__main__":
         # Set vertex data that lies outside of cortex to -99
         med_wall_labels = np.setdiff1d(labels, ctx_labels, assume_unique=True)
         vtx_data[med_wall_labels] = -99
-        
+
         # Write out the vtx_data
         #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
