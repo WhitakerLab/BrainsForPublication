@@ -605,9 +605,6 @@ if __name__ == "__main__":
 
             if roi_name in df.columns:
                 roi_data[i] = df[roi_name]
-            else:
-                roi_data[i] = -99
-                print ('Setting {} to -99'.format(name))
 
         print (roi_data)
 
@@ -617,6 +614,7 @@ if __name__ == "__main__":
         # Set vertex data that lies outside of cortex to -99
         med_wall_labels = [ i for i in labels if i not in ctx_labels ]
 
+        vtx_data[med_wall_labels] = -99
         print(vtx_data[med_wall_labels])
         print ('Shape of vtx_data: {}'.format(vtx_data.shape))
         print ('Shape of vtx_data in med wall: {}'.format(vtx_data[med_wall_labels].shape))
