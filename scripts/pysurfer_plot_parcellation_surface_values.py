@@ -618,7 +618,8 @@ if __name__ == "__main__":
         med_wall_labels = [ i for i in labels if i not in ctx_labels ]
 
         print(vtx_data[med_wall_labels])
-        #print ('Shape of vtx_data: {}'.format(vtx_data.shape))
+        print ('Shape of vtx_data: {}'.format(vtx_data.shape))
+        print ('Shape of vtx_data in med wall: {}'.format(vtx_data[med_wall_labels].shape))
         #print (vtx_data.min())
         #print (vtx_data.max())
         #print (len(vtx_data[vtx_data==-99]))
