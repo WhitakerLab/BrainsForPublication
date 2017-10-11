@@ -606,9 +606,12 @@ if __name__ == "__main__":
         # You need this for the Desikan-Killiany atlas (aparc)
         vtx_data[labels==-1] = -99
 
-        # Write out the vtx_data
-        f_name = os.path.join(output_dir, 'test.annot')
-        nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
+        # NOTE: I used to have a function here that wrote out
+        # the vtx_data as an annot file, but I've taken it out because
+        # the annot file can only contain integers and that isn't
+        # really all that useful. The nib.freesurfer.write_annot function
+        # works, but make sure to come up with *new* ctab and names
+        # for the values (if you decided to re-implement it!)
 
         # Show this data on a brain
         plot_surface(vtx_data, subject_id, hemi,
