@@ -603,10 +603,12 @@ if __name__ == "__main__":
         vtx_data = roi_data[labels]
 
         # Set vertex data where the label is -1 to -99
+        # You need this for the Desikan-Killiany atlas (aparc)
         vtx_data[labels==-1] = -99
 
         # Write out the vtx_data
-        #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
+        f_name = os.path.join(output_dir, 'test.annot')
+        nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
 
         # Show this data on a brain
         plot_surface(vtx_data, subject_id, hemi,
