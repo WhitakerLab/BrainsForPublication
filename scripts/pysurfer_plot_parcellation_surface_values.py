@@ -586,7 +586,7 @@ if __name__ == "__main__":
         # Use nibabel to merge together the aparc_names and the aparc_file
         labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
         ctx_labels, ctx_lab_vals = nib.freesurfer.read_label(cortex_label_file,
-                                                             read_scalars=True))
+                                                             read_scalars=True)
 
         print (labels)
         print (list(set(labels)))
