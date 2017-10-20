@@ -24,7 +24,7 @@ Want to see where the clusters in your 3D statistical maps are? Check out ***[sh
   width=70%/>
 <BR CLEAR=ALL>
 
-Want to make beautiful images of your freesurfer results? Check out ***[pysurfer_combined.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/mni_glass_brain.md)***
+Want to make beautiful images of your freesurfer results? Check out ***[pysurfer_combined.py](https://github.com/KirstieJane/BrainsForPublication/blob/master/docs/pysurfer_plot_500parcellation_surface_values.md)***
 
 <img
   src="https://raw.githubusercontent.com/KirstieJane/BrainsForPublication/master/test_data/PLS2_with99s_pial_classic_combined.png"
