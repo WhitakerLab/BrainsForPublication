@@ -9,6 +9,8 @@
 #=============================================================================
 # IMPORTS
 #=============================================================================
+from __future__ import print_function
+
 import os
 import sys
 import argparse
@@ -27,9 +29,6 @@ import matplotlib.gridspec as gridspec
 
 import matplotlib.colors as mcolors
 import matplotlib.cm as cm
-
-# Make this function work for Python 2 & 3
-from __future__ import print_function
 
 #=============================================================================
 # FUNCTIONS
@@ -52,6 +51,15 @@ def setup_argparser():
                             metavar='roi_file',
                             help='roi file containing list of measure values - one for each region - csv format')
 
+    parser.add_argument('--annot_name',
+                            type=str,
+                            metavar='annot_name',
+                            help=('name of annot file that contains the parcellation\n' +
+                                  'the code has been tested with aparc, 500.aparc,\n' +
+                                  'economo and HCP annot files that are shipped within\n' +
+                                  'the required_data/fsaverageSubP directory'),
+                            default='500.aparc')
+
     parser.add_argument('--fsaverageid',
                             type=str,
                             metavar='fsaverage_id',
@@ -62,7 +70,8 @@ def setup_argparser():
                             type=str,
                             metavar='subjects_dir',
                             help='freesurfer subjects dir',
-                            default=os.environ["SUBJECTS_DIR"])
+                            default=os.path.join(os.path.dirname(sys.argv[0]),
+                                                 '..', 'required_data'))
 
     parser.add_argument('-c', '--cmap',
                             type=str,
@@ -114,7 +123,7 @@ def setup_argparser():
                             type=str,
                             metavar='surface',
                             help='surface - one of "pial", "inflated" or "both"',
-                            default='both')
+                            default='pial')
 
     parser.add_argument('-cst', '--cortex_style',
                             type=str,
@@ -122,12 +131,52 @@ def setup_argparser():
                             help='cortex style - one of "classic", "bone", "high_contrast" or "low_contrast"',
                             default='classic')
 
+    parser.add_argument('-d', '--dpi',
+                            type=float,
+                            metavar='dpi',
+                            help='resolution of output combined pictures',
+                            default=300)
+
     arguments = parser.parse_args()
 
     return arguments, parser
 
 #------------------------------------------------------------------------------
-def calc_range(roi_data, l, u, thresh, center):
+def calc_range(roi_data, l=None, u=None, thresh=-99, center=False):
+    """
+    The calc_range function takes as input:
+      * roi_data: a numpy array or column from a pandas data frame
+      * lower threshold for color map: a float or integer value, or None
+          if None, the lower threshold is calculated from the data
+      * upper threshold for color map: a float or integer value, or None
+          if None, the upper threshold is calculated from the data
+      * threshold value (regions with values below this threhold will not be
+          plotted): a float or integer value, default is -99
+      * center: a boolean which if true forces 0 to be the center of the color
+          bar, default is False
+
+    If center is set to False, and l and u are both provided, then they are
+      simply returned, nothing happens!
+
+    If center is set to True and the thresholds are given then the largest one
+      (according to its absolute value) is set as one limit, with the other
+      calculated as that limit * -1.
+
+    If either of the lower or upper limits are given as None, they are
+      calculated by rounding to the closest 1/20th of the data in the correct
+      direction.
+      For example, if the minimum value is -3.236 it would be rounded to -3.20.
+        If the maximum value were 10223.22 it would be rounded to 10224.
+      Note, this isn't perfect, and it could be improved by rounding to 3
+      decimal places before applying this rounding to the nearest 1/20th. But
+      it's not too bad for now.
+
+    If a threshold is given, and the lower limit is not given, that limit
+      is calculated as being the smallest value that is greater than the
+      threshold value.
+      For example, if the minimum value is -183.22 but the threshold is given
+        as -99, then the smallest value that is larger than -99 is used.
+    """
     # Figure out the min and max for the color bar
     if l == None:
         l = roi_data[roi_data>thresh].min()
@@ -145,8 +194,44 @@ def calc_range(roi_data, l, u, thresh, center):
 
     return l, u
 
+def make_colorbar(l, u, cmap, color_file):
+    # If you have a custom color_file then get the lower and upper
+    # values from that, and create the color map from it too.
+    if color_file:
+        cmap = [line.strip() for line in open(color_file)]
+        l = 1
+        u = len(cmap)
+
+        # If you've passed rgb values you need to convert
+        # these to tuples
+        if len(cmap[0].split()) == 3:
+            cmap = [ (np.float(x.split()[0]),
+                      np.float(x.split()[1]),
+                      np.float(x.split()[2])) for x in cmap ]
+
+    # If you don't have a color_file then calculate the lower and
+    # upper limits from the data itself
+    else:
+        # Set l and u so that they're the same for both hemispheres
+        l, u = calc_range(df[0], l, u, thresh, center)
+
+    return l, u, cmap
+
 #------------------------------------------------------------------------------
-def plot_surface(vtx_data, subject_id, hemi, surface, subjects_dir, output_dir, prefix, l, u, cmap, thresh, thresh2=None, cmap2='autumn', cortex_style='classic'):
+def plot_surface(vtx_data,
+                 subject_id,
+                 hemi,
+                 surface,
+                 subjects_dir,
+                 output_dir,
+                 prefix,
+                 l,
+                 u,
+                 cmap,
+                 thresh,
+                 thresh2=None,
+                 cmap2='autumn',
+                 cortex_style='classic'):
     """
     This function needs more documentation, but for now
     it is sufficient to know this one important fact:
@@ -219,7 +304,7 @@ def plot_surface(vtx_data, subject_id, hemi, surface, subjects_dir, output_dir, 
                         colorbar = range(len(views_list)) )
 
 #-----------------------------------------------------------------------------
-def combine_pngs(measure, surface, output_dir, cortex_style):
+def combine_pngs(measure, surface, output_dir, cortex_style, dpi):
     '''
     Find four images and combine them into one nice picture
     '''
@@ -262,7 +347,7 @@ def combine_pngs(measure, surface, output_dir, cortex_style):
 
     # Save the figure
     filename = os.path.join(output_dir, '{}_{}_{}_combined.png'.format(measure, surface, cortex_style))
-    fig.savefig(filename, bbox_inches=0, dpi=300)
+    fig.savefig(filename, bbox_inches=0, dpi=dpi)
 
 
 def add_four_hor_brains(grid, f_list, fig):
@@ -355,7 +440,7 @@ def add_colorbar(grid, big_fig, cmap_name, y_min=0, y_max=1, cbar_min=0, cbar_ma
     return big_fig
 
 
-def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap):
+def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap, dpi):
 
     # Set up the figure
     fig, ax = plt.subplots(figsize=(20,6), facecolor='white')
@@ -396,155 +481,160 @@ def brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap):
 
     # Save the figure
     filename = os.path.join(output_dir, '{}_{}_{}_FourHorBrains.png'.format(measure, surface, cortex_style))
-    fig.savefig(filename, dpi=300)
+    fig.savefig(filename, dpi=dpi)
 
     # Close the figure
     plt.close('all')
 
-#=============================================================================
-# SET SOME VARIABLES
-#=============================================================================
-# Read in the arguments from argparse
-arguments, parser = setup_argparser()
+#===============================================================================
 
-subject_id = arguments.fsaverageid
-subjects_dir = arguments.subjects_dir
-roi_data_file = arguments.roi_file
-l = arguments.lower
-u = arguments.upper
-cmap = arguments.cmap
-cmap2 = arguments.cmap2
-color_file = arguments.color_file
-center = arguments.center
-surface = arguments.surface
-thresh = arguments.thresh
-thresh2 = arguments.thresh2
-cortex_style = arguments.cortex_style
+if __name__ == "__main__":
 
-# Define the output directory
-output_dir = os.path.join(os.path.dirname(roi_data_file), 'PNGS')
-if not os.path.isdir(output_dir):
-    os.mkdir(output_dir)
+    #---------------------------------------------------------------------------
+    # Read in the arguments from argparse
+    #---------------------------------------------------------------------------
+    arguments, parser = setup_argparser()
 
-# Define the name of the measure you're plotting
-measure = os.path.basename(roi_data_file)
-measure = os.path.splitext(measure)[0]
+    annot_name = arguments.annot_name
+    subject_id = arguments.fsaverageid
+    subjects_dir = arguments.subjects_dir
+    roi_data_file = arguments.roi_file
+    l = arguments.lower
+    u = arguments.upper
+    cmap = arguments.cmap
+    cmap2 = arguments.cmap2
+    color_file = arguments.color_file
+    center = arguments.center
+    surface = arguments.surface
+    thresh = arguments.thresh
+    thresh2 = arguments.thresh2
+    cortex_style = arguments.cortex_style
+    dpi = arguments.dpi
 
-# Define the aparc names
-# Read in aparc names file
-aparc_names_file =  os.path.join(subjects_dir,
-                          subject_id, "parcellation",
-                          "500.names.txt")
+    # Define the output directory
+    output_dir = os.path.join(os.path.dirname(roi_data_file), 'PNGS')
+    if not os.path.isdir(output_dir):
+        os.mkdir(output_dir)
 
-# Read in the names from the aparc names file
-# dropping the first 41
-aparc_names = [line.strip() for line in open(aparc_names_file)]
-aparc_names = aparc_names[41::]
+    # Define the name of the measure you're plotting
+    measure = os.path.basename(roi_data_file)
+    measure = os.path.splitext(measure)[0]
 
-# Figure out which surfaces you're going to use
-if surface == 'both':
-    surface_list = [ "inflated", "pial" ]
-elif surface == 'inflated':
-    surface_list = [ "inflated" ]
-elif surface == 'pial':
-    surface_list = [ "pial" ]
-else:
-    print("Do not recognise surface. Check {}".format(surface))
-    parser.print_help()
-    sys.exit()
+    # Define the aparc names
+    # Read in aparc names file
+    aparc_names_file =  os.path.join(subjects_dir,
+                                     subject_id, "parcellation",
+                                     "{}.names.txt".format(annot_name))
 
-hemi_list = [ "lh", "rh" ]
-views_list = [ 'medial', 'lateral' ]
+    # Read in the names from the aparc names file
+    aparc_names = [line.strip() for line in open(aparc_names_file)]
+    # dropping the first 41            #### COMMMENTED OUT - NEED TO UPDATE THIS SO WE DON'T HAVE TO DROP THE FIRST 41...
+    ## aparc_names = aparc_names[41::] #### COMMMENTED OUT - NEED TO UPDATE THIS SO WE DON'T HAVE TO DROP THE FIRST 41...
 
-# Check that the inputs exist:
-if not os.path.isfile(roi_data_file):
-    print("Roi data file doesn't exist")
-    parser.print_help()
-    sys.exit()
+    # Figure out which surfaces you're going to use
+    if surface == 'both':
+        surface_list = [ "inflated", "pial" ]
+    elif surface == 'inflated':
+        surface_list = [ "inflated" ]
+    elif surface == 'pial':
+        surface_list = [ "pial" ]
+    else:
+        print ("Do not recognise surface. Check {}".format(surface))
+        parser.print_help()
+        sys.exit()
 
-if not os.path.isdir(os.path.join(subjects_dir, subject_id, "surf")):
-    print("Fsaverage directory doesn't exist")
-    print("Check subjects_dir and subject_id")
-    parser.print_help()
-    sys.exit()
+    hemi_list = [ "lh", "rh" ]
+    views_list = [ 'medial', 'lateral' ]
 
-#=============================================================================
-# READ IN THE MEASURE DATA
-#=============================================================================
-# Read in the data
-df = pd.read_csv(roi_data_file, index_col=False, header=None)
+    # Check that the inputs exist:
+    if not os.path.isfile(roi_data_file):
+        print ("Roi data file doesn't exist")
+        sys.exit()
 
-#-------
-# Make custom colorbar
-if color_file:
-    cmap = [line.strip() for line in open(color_file)]
-    l = 1
-    u = len(cmap)
+    if not os.path.isdir(os.path.join(subjects_dir, subject_id, "surf")):
+        print ("Fsaverage directory doesn't exist")
+        print ("Check subjects_dir and subject_id")
+        sys.exit()
 
-    # If you've passed rgb values you need to convert
-    # these to tuples
-    if len(cmap[0].split()) == 3:
-        cmap = [ (np.float(x.split()[0]),
-                  np.float(x.split()[1]),
-                  np.float(x.split()[2])) for x in cmap ]
+    #---------------------------------------------------------------------------
+    # READ IN THE MEASURE DATA
+    #---------------------------------------------------------------------------
+    # Read in the data
+    df = pd.read_csv(roi_data_file, index_col=False, header=None)
 
-else:
-    # Set l and u so that they're the same for both hemispheres
-    l, u = calc_range(df[0], l, u, thresh, center)
+    # Make custom colorbar
+    l, u, cmap = make_colorbar(l, u, cmap, color_file)
 
-# Now rearrange the data frame and match it up with
-# the aparc names
-df = df.T
-df.columns = aparc_names
+    # Now rearrange the data frame and match it up with
+    # the aparc names
+    df = df.T
+    df.columns = aparc_names
 
-# Now make your pictures
-for hemi, surface in it.product(hemi_list, surface_list):
+    # Now make your pictures
+    for hemi, surface in it.product(hemi_list, surface_list):
 
-    prefix = '_'.join([measure, hemi, surface, cortex_style])
+        prefix = '_'.join([measure, hemi, surface, cortex_style])
 
-    # Read in aparc annot file which will be inside
-    # the label folder of your fsaverage subject folder
-    aparc_file = os.path.join(subjects_dir,
-                          subject_id, "label",
-                          hemi + ".500.aparc.annot")
+        # Read in aparc annot file which will be inside
+        # the label folder of your fsaverage subject folder
+        aparc_file = os.path.join(subjects_dir,
+                                  subject_id, "label",
+                                  "{}.{}.annot".format(hemi, annot_name))
 
-    # Use nibabel to merge together the aparc_names and the aparc_file
-    labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
+        # Also read in the cortex label file which you'll
+        # use to make sure you don't visualise the medial wall
+        cortex_label_file= os.path.join(subjects_dir,
+                                        subject_id, "label",
+                                        "{}.cortex.label".format(hemi))
 
-    # Create an empty roi_data array
-    roi_data = np.ones(len(names))*(thresh-1.0)
+        # Use nibabel to merge together the aparc_names and the aparc_file
+        labels, ctab, names = nib.freesurfer.read_annot(aparc_file)
+        ctx_labels= nib.freesurfer.read_label(cortex_label_file)
 
-    # Loop through the names and if they are in the data frame
-    # for this hemisphere then add that value to the roi_data array
-    for i, name in enumerate(names):
-        roi_name = '{}_{}'.format(hemi, name)
+        # Create an empty roi_data array
+        roi_data = np.ones(len(names))*(thresh-1.0)
 
-        if roi_name in df.columns:
-            roi_data[i] = df[roi_name]
+        # Loop through the names and if they are in the data frame
+        # for this hemisphere then add that value to the roi_data array
+        for i, name in enumerate(names):
+            roi_name = '{}_{}'.format(hemi, name)
 
-    # Make a vector containing the data point at each vertex.
-    vtx_data = roi_data[labels]
+            if roi_name in df.columns:
+                roi_data[i] = df[roi_name]
 
-    # Write out the vtx_data
-    #nib.freesurfer.write_annot(f_name, vtx_data, ctab, names)
+        # Make a vector containing the data point at each vertex.
+        vtx_data = roi_data[labels]
 
-    # Show this data on a brain
-    plot_surface(vtx_data, subject_id, hemi,
-                     surface, subjects_dir,
-                     output_dir, prefix,
-                     l, u, cmap,
-                     thresh,
-                     cmap2=cmap2,
-                     thresh2=thresh2,
-                     cortex_style=cortex_style)
+        # Set vertex data where the label is -1 to -99
+        # You need this for the Desikan-Killiany atlas (aparc)
+        vtx_data[labels==-1] = -99
 
-#=============================================================================
-# COMBINE THE IMAGES
-#=============================================================================
-for surface in surface_list:
-    combine_pngs(measure, surface, output_dir, cortex_style)
-    brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap)
+        # NOTE: I used to have a function here that wrote out
+        # the vtx_data as an annot file, but I've taken it out because
+        # the annot file can only contain integers and that isn't
+        # really all that useful. The nib.freesurfer.write_annot function
+        # works, but make sure to come up with *new* ctab and names
+        # for the values (if you decided to re-implement it!)
+
+        # Show this data on a brain
+        plot_surface(vtx_data, subject_id, hemi,
+                         surface, subjects_dir,
+                         output_dir, prefix,
+                         l, u, cmap,
+                         thresh,
+                         cmap2=cmap2,
+                         thresh2=thresh2,
+                         cortex_style=cortex_style)
+
+    #=============================================================================
+    # COMBINE THE IMAGES
+    #=============================================================================
+    for surface in surface_list:
+        combine_pngs(measure, surface, output_dir, cortex_style, dpi)
+        brains_in_a_row(measure, surface, output_dir, cortex_style, l, u, cmap, dpi)
+
 
 # You're done :)
 # Happy International Women's Day 2017
+# Updated on 10th October 2017 from Nanning, China
 # <3 Kx
