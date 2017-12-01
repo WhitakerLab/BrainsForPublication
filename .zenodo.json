@@ -1,35 +1,37 @@
 {
-    "description": "<p>Minor update to include an updated zenodo json metadata file and clearer acknowledgement of contributors in the license file.</p><p><b>v0.2.0</b>: This release incorporates plotting surface information for four new annotations for the pysurfer_plot_parcellation_surface_values.py code. It now supports aparc, 500.aparc, economo and HCP annotations. These files are shipped within this package inside the required_data/fsaverageSubP directory.</p>", 
-    "license": "MIT", 
-    "title": "BrainsForPublication", 
-    "version": "v0.2.1", 
-    "upload_type": "software", 
-    "publication_date": "2017-12-01", 
+    "license": "MIT",
+    "title": "BrainsForPublication",
+    "upload_type": "software",
     "creators": [
         {
-            "orcid": "0000-0001-8498-4059", 
-            "affiliation": "Alan Turing Institute, University of Cambridge", 
+            "orcid": "0000-0001-8498-4059",
+            "affiliation": "Alan Turing Institute, University of Cambridge",
             "name": "Kirstie Whitaker"
-        }, 
+        },
         {
             "name": "Michael Notter"
-        }, 
+        },
         {
-            "affiliation": "University of Cambridge", 
+            "affiliation": "University of Cambridge",
             "name": "Sarah Morgan"
         }
-    ], 
-    "access_right": "open", 
+    ],
+    "access_right": "open",
     "related_identifiers": [
         {
-            "scheme": "url", 
-            "identifier": "https://github.com/WhitakerLab/BrainsForPublication/tree/v0.2.1", 
+            "scheme": "url",
+            "identifier": "https://github.com/WhitakerLab/BrainsForPublication/tree/v0.2.1",
             "relation": "isSupplementTo"
-        }, 
+        },
         {
-            "scheme": "doi", 
-            "identifier": "10.5281/zenodo.596845", 
+            "scheme": "doi",
+            "identifier": "10.5281/zenodo.596845",
             "relation": "isPartOf"
-        }, 
+        },
+        {
+            "scheme": "doi",
+            "identifier": "10.5281/zenodo.596845",
+            "relation": "isPartOf"
+        }
     ]
 }
