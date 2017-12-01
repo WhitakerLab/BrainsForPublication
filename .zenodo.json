@@ -1,0 +1,35 @@
+{
+    "description": "<p>This release incorporates plotting surface information for four new annotations for the pysurfer_plot_parcellation_surface_values.py code. It now supports aparc, 500.aparc, economo and HCP annotations. These files are shipped within this package inside the required_data/fsaverageSubP directory.</p>", 
+    "license": "MIT", 
+    "title": "BrainsForPublication: v0.2.0", 
+    "version": "v0.2.0", 
+    "upload_type": "software", 
+    "publication_date": "2017-12-01", 
+    "creators": [
+        {
+            "orcid": "0000-0001-8498-4059", 
+            "affiliation": "Alan Turing Institute, University of Cambridge", 
+            "name": "Kirstie Whitaker"
+        }, 
+        {
+            "name": "Michael Notter"
+        }, 
+        {
+            "affiliation": "University of Cambridge", 
+            "name": "Sarah Morgan"
+        }
+    ], 
+    "access_right": "open", 
+    "related_identifiers": [
+        {
+            "scheme": "url", 
+            "identifier": "https://github.com/WhitakerLab/BrainsForPublication/tree/v0.2.0", 
+            "relation": "isSupplementTo"
+        }, 
+        {
+            "scheme": "doi", 
+            "identifier": "10.5281/zenodo.596845", 
+            "relation": "isPartOf"
+        }
+    ]
+}
