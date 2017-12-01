@@ -1,4 +1,5 @@
 {
+    "description": "<p>Minor update to include an updated zenodo json metadata file and clearer acknowledgement of contributors in the license file.</p><p><b>v0.2.0</b>: This release incorporates plotting surface information for four new annotations for the pysurfer_plot_parcellation_surface_values.py code. It now supports aparc, 500.aparc, economo and HCP annotations. These files are shipped within this package inside the required_data/fsaverageSubP directory.</p>", 
     "license": "MIT", 
     "title": "BrainsForPublication", 
     "upload_type": "software", 
