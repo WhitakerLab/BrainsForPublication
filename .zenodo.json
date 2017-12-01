@@ -17,21 +17,4 @@
         }
     ],
     "access_right": "open",
-    "related_identifiers": [
-        {
-            "scheme": "url",
-            "identifier": "https://github.com/WhitakerLab/BrainsForPublication/tree/v0.2.1",
-            "relation": "isSupplementTo"
-        },
-        {
-            "scheme": "doi",
-            "identifier": "10.5281/zenodo.596845",
-            "relation": "isPartOf"
-        },
-        {
-            "scheme": "doi",
-            "identifier": "10.5281/zenodo.596845",
-            "relation": "isPartOf"
-        }
-    ]
 }
