@@ -1,4 +1,7 @@
 # BrainsForPublication
+
+[![Join the chat at https://gitter.im/WhitakerLab/BrainsForPublication](https://badges.gitter.im/WhitakerLab/BrainsForPublication.svg)](https://gitter.im/WhitakerLab/BrainsForPublication?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Code and documentation for the Brains for Publication proposal for the 2016 OHBM Hackathon.
 
 ## Release information
