@@ -60,3 +60,12 @@ If you don't want to download anything, you can actually run these scripts onlin
 ## Contributing to the project
 
 If you'd like to contribute to the project please read our [guidelines](https://github.com/KirstieJane/BrainsForPublication/blob/master/CONTRIBUTING.md). Please also read through our [code of conduct](https://github.com/KirstieJane/BrainsForPublication/blob/master/CODE_OF_CONDUCT.md). We want this project to be open and supportive of anyone at any level of seniority or GitHub/coding/statistical/neuroantomical/aesthetic expertise.
+
+## Contributors
+
+**Thank you to our wonderful contributors** :sparkles::balloon::cake:
+
+| [<img src="https://avatars.githubusercontent.com/kirstiejane?s=100" width="100" alt="Kirstie Whitaker" /><br /><sub>Kirstie Whitaker</sub>](https://whitakerlab.github.io)<br />[💻](https://github.com/WhitakerLab/BrainsForPublication/commits?author=KirstieJane) [📖](https://github.com/WhitakerLab/BrainsForPublication/commits?author=KirstieJane) | [<img src="https://avatars.githubusercontent.com/miykael?s=100" width="100" alt="Michael Notter" /><br /><sub>Michael Notter</sub>](https://github.com/miykael)<br />[💻](https://github.com/WhitakerLab/BrainsForPublication/commits?author=miykael) [📖](https://github.com/WhitakerLab/BrainsForPublication/commits?author=miykael) | [<img src="https://avatars.githubusercontent.com/SarahMorgan?s=100" width="100" alt="Sarah Morgan" /><br /><sub>Sarah Morgan</sub>](https://semorgan.org)<br /> [📖](https://github.com/WhitakerLab/BrainsForPublication/commits?author=SarahMorgan) [🐛](https://github.com/WhitakerLab/BrainsForPublication/issues?q=author%3ASarahMorgan) |
+| :---: | :---: | :---: |
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification.

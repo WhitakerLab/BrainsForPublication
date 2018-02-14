@@ -10,7 +10,7 @@ It complements the [README](https://github.com/KirstieJane/BrainsForPublication/
 
 If you have some code that makes pretty brain pictures please upload it into the [NotYetCurated](https://github.com/KirstieJane/BrainsForPublication/tree/master/NotYetCurated) folder. Please upload all the comments and documentation that you have, but don't worry if it's just a snippet at the moment! One of the goals for the hackathon is to work on making all our individual hard work easy to access by others.
 
-Once your code is in the folder, you could open an [issue](#issues) to describe what it does and suggest any work that could be done to make it even better. 
+Once your code is in the folder, you could open an [issue](#issues) to describe what it does and suggest any work that could be done to make it even better.
 
 ## Issues
 
@@ -28,6 +28,8 @@ If you need any help submiting a pull request you can ask Kirstie on [Slack](htt
 
 ## Acknowledging contributions
 
-Everyone's work is important, whether you provide feedback on an issue by giving it a little :+1:, you suggest refinements to some documentation, you comment someone elses code, or make it generalisable to your use, the project is stronger when we have a range of people helping out.
+Everyone's work is important, whether you provide feedback on an issue by giving it a little :+1:, you suggest refinements to some documentation, you comment someone else's code, or make it generalisable to your use, the project is stronger when we have a range of people helping out.
 
 We have a [Let's Build a Hat Rack](https://labhr.github.io/hatrack/#repo=KirstieJane/BrainsForPublication) page that shows everyone who has contributed to the project. You can find out more about Let's Build a Hat Rack at their [home page](http://labhr.github.io/).
+
+We also maintain a table of the key contributors in our [README](README.md) file. It follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification using an [emoji-key](https://github.com/kentcdodds/all-contributors#emoji-key) for a variety of different contributions! If you've contributed, please add yourself to that table :sparkles::sparkles::sparkles:
