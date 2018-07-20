@@ -48,6 +48,7 @@ Specifically the folder contains all the standard fsaverage files along with:
 
 The two directories `parcellation` and `label` must be inside the `fsaverageSubP` directory.
 
+**NOTE TO MV: Here's a great place to potentially add some information about how it isn't JUST the 500.aparc parcellation anymore!!**
 
 ### Plotting parcellation values for the NSPN (area=500) parcellation
 
