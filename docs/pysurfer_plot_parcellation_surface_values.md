@@ -1,6 +1,6 @@
-# Surface values for 500 parcellation
+# Surface values for parcellation
 
-The `pysurfer_plot_500parcellation_surface_values.py` script visualises a list of regional measures for the NSPN 500mm<sup>2</sup> freesurfer surface parcellation.
+The `pysurfer_plot_parcellation_surface_values.py` script visualises a list of regional measures for selected freesurfer surface parcellations.
 
 
 ## Required Installations
@@ -14,13 +14,15 @@ Note that there can be some crazy complicated installation challenges if you try
     
     conda create -yn py27-b4p vtk mayavi python=2.7 anaconda
 
-5. [Nibabel](http://nipy.sourceforge.net/nibabel/installation.html#installation) by typing `pip install nibabel`
+5. [Nibabel](http://nipy.sourceforge.net/nibabel/installation.html#installation) **version 2.2.1** by typing `pip install nibabel==2.2.1`
 6. [pysurfer](http://pysurfer.github.io/install.html) by typing `pip install pysurfer`
 7. [seaborn](http://seaborn.pydata.org/index.html) `pip install seaborn`
 
 Please note - if you try to google how to install either VTK or mayavi you will end up in a world of pain! Anaconda and pip will be your friend...I hope!
 
 If you did this a little while ago you might need to upgrade the modules with either `conda update x` or `pip install --upgrade x`.
+
+*Note on 20 July 2018: Apparently, there's an error with the latest version of nibabel (2.3) so you have to install the previous one (2.2.1)*
 
 ### Getting Kirstie's code
 
