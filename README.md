@@ -5,9 +5,13 @@
 Code and documentation for the Brains for Publication proposal for the 2016 OHBM Hackathon.
 
 ## Release information
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.264123.svg)](https://doi.org/10.5281/zenodo.264123)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.596845.svg)](https://doi.org/10.5281/zenodo.596845)
 
-The first release of the BrainsForPublication repository (`v0.1.0`) is backed up on Zenodo and can be cited with DOI: [10.5281/zenodo.264123](https://doi.org/10.5281/zenodo.264123).
+The BrainsForPublication repository is backed up on Zenodo and can be cited either with the **concept DOI** - [10.5281/zenodo.596845](https://doi.org/10.5281/zenodo.596845) - or the doi associated with the specific **version** you used for your analyses (which can be found by looking on the righthand side of [project's Zenodo page](https://doi.org/10.5281/zenodo.596845). For more information about the difference between concept and version DOIs check out [this blog post](https://blogs.openaire.eu/?p=2010) from the Zenodo team.
+
+An example specific citation would be:
+
+> Kirstie Whitaker, Michael Notter, & Sarah Morgan. (2017, December 1). BrainsForPublication (Version v0.2.1). Zenodo. http://doi.org/10.5281/zenodo.1069156
 
 ## Some pretty pictures
 
