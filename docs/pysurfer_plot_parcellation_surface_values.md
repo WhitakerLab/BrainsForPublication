@@ -1,6 +1,6 @@
 # Surface values for 500 parcellation
 
-The `pysurfer_plot_500parcellation_surface_values.py` script visualises a list of regional measures for the NSPN 500mm<sup>2</sup> freesurfer surface parcellation.
+The `pysurfer_plot_parcellation_surface_values.py` script visualises a list of regional measures for the NSPN 500mm<sup>2</sup> freesurfer surface parcellation.
 
 
 ## Required Installations
@@ -14,7 +14,8 @@ Note that there can be some crazy complicated installation challenges if you try
     
     conda create -yn py27-b4p vtk mayavi python=2.7 anaconda
 
-5. [Nibabel](http://nipy.sourceforge.net/nibabel/installation.html#installation) by typing `pip install nibabel`
+5. [Nibabel](http://nipy.sourceforge.net/nibabel/installation.html#installation) by typing `pip install nibabel`. Nibabel version should be 2.1.0 
+##NOTE TO KW, clarify here best procedure to have the right version of the package. 
 6. [pysurfer](http://pysurfer.github.io/install.html) by typing `pip install pysurfer`
 7. [seaborn](http://seaborn.pydata.org/index.html) `pip install seaborn`
 
@@ -48,23 +49,40 @@ Specifically the folder contains all the standard fsaverage files along with:
 
 The two directories `parcellation` and `label` must be inside the `fsaverageSubP` directory.
 
-**NOTE TO MV: Here's a great place to potentially add some information about how it isn't JUST the 500.aparc parcellation anymore!!**
+## Surface values not only for 500 parcellate template 
+
+* pysurfer_plot_parcellation_surface_values.py` script visualises a list of regional measures not only for the NSPN 500mm<sup>2</sup> freesurfer surface parcellation, but also for Von Economo surface parcellation and HCP surface parcellation. For example, the HCP surface parcellation includes 360 cortical regions defined on the basis of multiple features (see Glasser et al., Nature 2016 for the original work identifying this parcellation scheme). 
+
+* Therefore the fsaverage folder (i.e., `fsaverageSubP`) shipped with the [BrainsForPublication] not only contains the fsaverage files for 500 aparc but also for HCP template, and von Economo. For example, the folder contains all the standard fsaverage files along with:
+
+* The aparc names file: `parcellation/HCP.names.txt`
+
+* The left and right annotation files: `label/lh.HCP.annot` & `label/rh.HCP.annot`
+
+The two directories `parcellation` and `label` must be inside the `fsaverageSubP` directory.
 
 ### Plotting parcellation values for the NSPN (area=500) parcellation
 
-This uses the `pysurfer_plot_500parcellation_surface_values.py` command.
+This uses the `pysurfer_plot_parcellation_surface_values.py` command.
 
 You can find the help information by typing:
 
-`pysurfer_plot_500parcellation_surface_values.py --help`
+`pysurfer_plot_parcellation_surface_values.py --help`
 
 Which will return:
 
-    usage: pysurfer_plot_500parcellation_surface_values.py [-h] [--fsaverageid fsaverage_id]
-                                    [-sd subjects_dir] [-c cmap] [--center]
-                                    [-t thresh] [-l lowerthr] [-u upperthr]
-                                    [-s surface]
-                                    roi_file
+    usage: pysurfer_plot_parcellation_surface_values.py [-h] [--annot_name annot_name]
+                                                    [--fsaverageid fsaverage_id]
+                                                    [-sd subjects_dir]
+                                                    [-c cmap] [-c2 cmap2]
+                                                    [-cf color_file]
+                                                    [--center] [-t thresh]
+                                                    [-t2 thresh2]
+                                                    [-l lowerthr]
+                                                    [-u upperthr] [-s surface]
+                                                    [-cst cortex_style]
+                                                    [-d dpi]
+                                                    roi_file
 
     Plot values on a freesurfer surface
 
@@ -74,26 +92,38 @@ Which will return:
 
     optional arguments:
       -h, --help            show this help message and exit
+      -- annot_name annot_name 
+                             name of the annot file that contains the parcellation the code code has been tested with aparc, 500. aparc,                                economo and HCP annot files that are shipped within the required_data/fsaverageSubP directory
       --fsaverageid fsaverage_id
-                            FSaverage subject id
-      -sd subjects_dir, --subjects_dir subjects_dir
+                        FSaverage subject id
+       -sd subjects_dir, --subjects_dir subjects_dir
                             freesurfer subjects dir
-      -c cmap, --cmap cmap  colormap
-      --center              center the color bar around 0
-      -t thresh, --thresh thresh
+       -c cmap, --cmap cmap  colormap
+       -c2 cmap2, --cmap2 cmap2
+                         colormap for the second overlay
+       -cf color_file, --color_file color_file
+                            file containing list of custom colors
+       --center            center the color bar around 0
+        -t thresh, --thresh thresh
                             mask values below this value
-      -l lowerthr, --lower lowerthr
+        -t2 thresh2, --thresh2 thresh2
+                            mask values below this value for the second color
+        -l lowerthr, --lower lowerthr
                             lower limit for colorbar
-      -u upperthr, --upper upperthr
-                            upper limit for colorbar
-      -s surface, --surface surface
-                            surface - one of "pial", "inflated" or "both"
+        -u upperthr, --upper upperthr
+                             upper limit for colorbar
+        -s surface, --surface surface
+                             surface - one of "pial", "inflated" or "both"
+        -cst cortex_style, --cortex_style cortex_style
+                             cortex style - one of "classic", "bone",
+                             "high_contrast" or "low_contrast"
+        -d dpi, --dpi dpi     resolution of output combined pictures
 
     Author: Kirstie Whitaker <kw401@cam.ac.uk>
 
 An example command may look something like this:
 
-`pysurfer_plot_500parcellation_surface_values.py -u 50 -c hsv -t -98 -s pial --center degree_values.txt`
+`pysurfer_plot_parcellation_surface_values.py -u 50 -c hsv -t -98 -s pial --center degree_values.txt`
 
 Let's step through the different options:
 
@@ -110,7 +140,13 @@ A *positional argument* means that the command will not run without it, and that
 
 * The first optional argument is `-h` or `--help`
     * Run the command with this flag to see the help printed above
-
+    
+* The `--annot_name` argument sets the template to be used 
+    * The default value is `500.aparc` meaning that it will default to that template. By specifying for example --annot_name HCP the            script uses HCP parcellation (from Glasser et al., Nature, 2016). In this case the positional argument `roi_file` will containe 360
+     values, one on each line and each corresponding to the 360 regions in the HCP parcellation. Do not put the names in this files, nor
+     the index numbers, but do make sure not to mix them up! Therefore, the positional argument (`roi_file`) should match the template 
+     specified via the `--annot_name` option. 
+    
 * The `--fsaverageid` argument sets the fsaverage id name.
     * The default value is `fsaverageSubP`
 
